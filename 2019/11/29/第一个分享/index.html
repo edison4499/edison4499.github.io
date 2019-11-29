@@ -6,16 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://edison4499.github.io">
-  <title>第一个分享 | edison4499blog</title>
+  <title>js闭包的理解 | edison4499blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是">
+  <meta name="description" content="形成闭包:  函数里面套函数，内部的函数被保存到了外部，形成闭包  特点：  内部函数可以引用外部函数的参数和变量  参数和变量不会被垃圾回收机制回收  缺点：  常驻内存增加内存使用量  使用不当很容易造成内存泄露  优点：  避免全局变量的污染   实现私有变量  可以保存一个变量长期储存在内存中">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第一个分享">
+<meta property="og:title" content="js闭包的理解">
 <meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;2019&#x2F;11&#x2F;29&#x2F;%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%88%86%E4%BA%AB&#x2F;index.html">
 <meta property="og:site_name" content="edison4499blog">
-<meta property="og:description" content="这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是">
+<meta property="og:description" content="形成闭包:  函数里面套函数，内部的函数被保存到了外部，形成闭包  特点：  内部函数可以引用外部函数的参数和变量  参数和变量不会被垃圾回收机制回收  缺点：  常驻内存增加内存使用量  使用不当很容易造成内存泄露  优点：  避免全局变量的污染   实现私有变量  可以保存一个变量长期储存在内存中">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-29T08:27:20.907Z">
+<meta property="og:updated_time" content="2019-11-29T09:43:23.587Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="edison4499blog" type="application/atom+xml">
@@ -153,7 +153,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      第一个分享
+      js闭包的理解
     </h1>
   
 
@@ -166,7 +166,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客这是我的第一个博客</p>
+        <ul>
+<li><p>形成闭包:<br>  函数里面套函数，内部的函数被保存到了外部，形成闭包</p>
+</li>
+<li><p>特点：<br>  内部函数可以引用外部函数的参数和变量<br>  参数和变量不会被垃圾回收机制回收</p>
+</li>
+<li><p>缺点：<br>  常驻内存增加内存使用量<br>  使用不当很容易造成内存泄露</p>
+</li>
+<li><p>优点：<br>  避免全局变量的污染</p>
+<p>  实现私有变量<br>  可以保存一个变量长期储存在内存中</p>
+</li>
+</ul>
 
       
 
@@ -263,16 +273,6 @@
 </article>
 
   
-<nav id="article-nav">
-  
-  
-    <a href="/2019/11/29/%E7%AC%AC%E4%B8%89%E4%B8%AA%E5%88%86%E4%BA%AB/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">第三个分享</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
