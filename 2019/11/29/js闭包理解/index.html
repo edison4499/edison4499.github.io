@@ -8,14 +8,14 @@
   <link rel="dns-prefetch" href="https://edison4499.github.io">
   <title>js闭包的理解 | edison4499blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="形成闭包:  函数里面套函数，内部的函数被保存到了外部，形成闭包 特点：  内部函数可以引用外部函数的参数和变量  参数和变量不会被垃圾回收机制回收 缺点：  常驻内存增加内存使用量  使用不当很容易造成内存泄露 优点：  避免全局变量的污染  实现私有变量  可以保存一个变量长期储存在内存中">
+  <meta name="description" content="形成闭包:  函数里面套函数，内部的函数被保存到了外部，形成闭包 特点：  内部函数可以引用外部函数的参数和变量  参数和变量不会被垃圾回收机制回收 缺点：  常驻内存增加内存使用量  使用不当很容易造成内存泄露 优点：  避免全局变量的污染var a &#x3D; 123; var get &#x3D; (function(){     var a &#x3D; 345;     function getAo(){">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js闭包的理解">
 <meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;2019&#x2F;11&#x2F;29&#x2F;js%E9%97%AD%E5%8C%85%E7%90%86%E8%A7%A3&#x2F;index.html">
 <meta property="og:site_name" content="edison4499blog">
-<meta property="og:description" content="形成闭包:  函数里面套函数，内部的函数被保存到了外部，形成闭包 特点：  内部函数可以引用外部函数的参数和变量  参数和变量不会被垃圾回收机制回收 缺点：  常驻内存增加内存使用量  使用不当很容易造成内存泄露 优点：  避免全局变量的污染  实现私有变量  可以保存一个变量长期储存在内存中">
+<meta property="og:description" content="形成闭包:  函数里面套函数，内部的函数被保存到了外部，形成闭包 特点：  内部函数可以引用外部函数的参数和变量  参数和变量不会被垃圾回收机制回收 缺点：  常驻内存增加内存使用量  使用不当很容易造成内存泄露 优点：  避免全局变量的污染var a &#x3D; 123; var get &#x3D; (function(){     var a &#x3D; 345;     function getAo(){">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-30T06:32:53.773Z">
+<meta property="og:updated_time" content="2019-11-30T10:11:22.687Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="edison4499blog" type="application/atom+xml">
@@ -77,14 +77,6 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
-		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
-		        
 			</div>
 		</nav>
 	</header>		
@@ -116,14 +108,6 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
-			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
-			        
 				</div>
 			</nav>
 
@@ -170,7 +154,49 @@
 <li>形成闭包:<br>  函数里面套函数，内部的函数被保存到了外部，形成闭包</li>
 <li>特点：<br>  内部函数可以引用外部函数的参数和变量<br>  参数和变量不会被垃圾回收机制回收</li>
 <li>缺点：<br>  常驻内存增加内存使用量<br>  使用不当很容易造成内存泄露</li>
-<li>优点：<br>  避免全局变量的污染<br>  实现私有变量<br>  可以保存一个变量长期储存在内存中</li>
+<li>优点：<br>  避免全局变量的污染<pre><code>var a = 123;
+var get = (function(){
+    var a = 345;
+    function getAo(){
+        console.log(a)
+    }
+    return function(){
+        getAo()
+    }
+}())
+get()</code></pre>  实现私有变量<pre><code>实例如下：
+function Person(name){
+    // 定义一个私有变量 这里的意思是私房钱
+    var privateMoney = 20000;
+    this.name = name;
+    this.getPrivate = function(){
+        this.ownMoney = privateMoney
+    }
+    this.changePrivate = function(target){
+        privateMoney = target+privateMoney;
+    }
+}
+let chris = new Person(&apos;Chris&apos;)
+// 看看自己有多少私房钱
+chris.getPrivate()
+console.log(chris.ownMoney)// 这里之所以可以看到是因为用到了闭包
+// 此时可以继续存储私房钱 
+chris.changePrivate(40000);
+chris.getPrivate()
+console.log(chris.ownMoney) // 此时私房钱就变成了60000
+// 但是我们直接去访问chris.privateMoney 是访问不到的
+console.log(chris,privateMoney)// 此时会报错  实现私有变量  他自己可以内部用但是我们外部访问不到</code></pre>  可以保存一个变量长期储存在内存中<pre><code>function fn(){
+    var arr = [];
+    for(var i= 0;i&lt;=9;i++){
+        arr[j] = function(){
+            console.log(j)
+        }
+    }
+    return arr;
+}
+var resArr = fn();
+resArr[1]() // 10 
+resArr[2]() // 10</code></pre></li>
 </ul>
 
       
