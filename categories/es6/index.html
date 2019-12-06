@@ -6,16 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://edison4499.github.io">
-  <title>splitChunks的配置详解 | edison4499blog</title>
+  <title>Category: es6 | edison4499blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="optimization:&amp;#123;    splitChunks:&amp;#123;        chunks: &amp;apos;all&amp;apos;, &#x2F;&#x2F; all 所有 async 异步 initial 同步        minSize: 30000,&#x2F;&#x2F; 最小的字节大小这里是30kb        &#x2F;&#x2F; maxSize: 0,&#x2F;&#x2F; 最大的 这一项一般不用 意思是假设打包的有1mb 这里设置500000">
-<meta property="og:type" content="article">
-<meta property="og:title" content="splitChunks的配置详解">
-<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;2019&#x2F;12&#x2F;04&#x2F;splitChunks%E7%9A%84%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3&#x2F;index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="edison4499blog">
+<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;categories&#x2F;es6&#x2F;index.html">
 <meta property="og:site_name" content="edison4499blog">
-<meta property="og:description" content="optimization:&amp;#123;    splitChunks:&amp;#123;        chunks: &amp;apos;all&amp;apos;, &#x2F;&#x2F; all 所有 async 异步 initial 同步        minSize: 30000,&#x2F;&#x2F; 最小的字节大小这里是30kb        &#x2F;&#x2F; maxSize: 0,&#x2F;&#x2F; 最大的 这一项一般不用 意思是假设打包的有1mb 这里设置500000">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-04T08:15:23.228Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="edison4499blog" type="application/atom+xml">
@@ -136,184 +133,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-splitChunks的配置详解" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      splitChunks的配置详解
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/12/06/es6/" class="archive-article-date">
+  	<time datetime="2019-12-06T03:10:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-06</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/12/06/es6/">es6块级作用域 解构赋值</a>
     </h1>
   
 
-        
-        <a href="/2019/12/04/splitChunks%E7%9A%84%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2019-12-04T08:12:51.233Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">optimization:&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    splitChunks:&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        chunks: <span class="string">'all'</span>, <span class="comment">// all 所有 async 异步 initial 同步</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        minSize: <span class="number">30000</span>,<span class="comment">// 最小的字节大小这里是30kb</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="comment">// maxSize: 0,// 最大的 这一项一般不用 意思是假设打包的有1mb 这里设置500000 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="comment">// 会尝试进行二次的拆分</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        minChunks: <span class="number">1</span>, <span class="comment">// 引入的块的最小值 比如说这里只引入了lodash如果这里改成2的话 就不会做代码分割了</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        maxAsyncRequests: <span class="number">6</span>,<span class="comment">// 最大的代码分割数 比如说你引入了7个 但是这里设置6  只会对前6个做分割</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        maxInitialRequests: <span class="number">4</span>,<span class="comment">// 整个网站首页加载的时候的最大引入数</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        automaticNameDelimiter: <span class="string">'~'</span>, <span class="comment">// 打包后文件名字的连接符号</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        automaticNameMaxLength: <span class="number">30</span>, <span class="comment">// 设置块名称的最大字符</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        name:<span class="literal">true</span>, <span class="comment">// 指的是下面的filename的名字生效</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        cacheGroups: &#123; <span class="comment">// 缓存组 代码分割后的非业务逻辑代码打包到一起 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">          vendors: &#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">            test: <span class="regexp">/[\\/]node_modules[\\/]/</span>, <span class="comment">//检测是否在node_modules目录</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            priority: <span class="number">-20</span>, <span class="comment">// 这个是优先级和下面default的priority做对比</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 引入的lodash符合在nodemodules下面 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// filename:'[name].bundle.js'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            name:<span class="string">'vendor'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">          &#125;,</span></pre></td></tr><tr><td class="code"><pre><span class="line">          <span class="keyword">default</span>: &#123;<span class="comment">// 检测的是没有在node_modules 目录下的时候的处理</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            minChunks: <span class="number">2</span>,<span class="comment">// 引入块的最小值</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            priority: <span class="number">-10</span>,<span class="comment">// 优先级</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 引入的lodash也符合在default 所有的模块都符合 此时就是比较权重了</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 注意哪怕这里的权重比上面的高 但是被上面的test匹配到了之后还是会走上面的</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            reuseExistingChunk: <span class="literal">true</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 比如说有两个模块 a 和 b a里面引入的有b </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 正常来说打包a的话会把b也打包进去</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 但是假如说以前b已经被打包过了 那么就不会再次被打包进去了</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            name:<span class="string">'common'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">          &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" target="_blank" rel="noopener" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我喝瓶水<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/apay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
+        <div class="article-info info-on-right">
+          
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/webpack/" class="article-tag-list-link color3">webpack</a>
+        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/webpack/webpack之splitChunks的配置详解/" class="article-tag-list-link color5">webpack之splitChunks的配置详解</a>
+        			<a href="/categories/es6/入门解构赋值/" class="article-tag-list-link color2">入门解构赋值</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" target="_blank" rel="noopener" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://edison4499.github.io/2019/12/04/splitChunks%E7%9A%84%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/12/06/es6/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          es6块级作用域 解构赋值
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/12/03/webpack-codeSpliting/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">webpack-codeSpliting</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -336,10 +213,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
-		isCategory: false,
+		isCategory: true,
 		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
