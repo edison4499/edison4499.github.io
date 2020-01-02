@@ -437,6 +437,160 @@
 
 
   
+    <article id="post-splitChunks的配置详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/16/splitChunks%E7%9A%84%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/">webpack之splitChunks的配置详解</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/16/splitChunks%E7%9A%84%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2019-12-16T04:00:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">optimization:&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    splitChunks:&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        chunks: <span class="string">'all'</span>, <span class="comment">// all 所有 async 异步 initial 同步</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        minSize: <span class="number">30000</span>,<span class="comment">// 最小的字节大小这里是30kb</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="comment">// maxSize: 0,// 最大的 这一项一般不用 意思是假设打包的有1mb 这里设置500000 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="comment">// 会尝试进行二次的拆分</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        minChunks: <span class="number">1</span>, <span class="comment">// 引入的块的最小值 比如说这里只引入了lodash如果这里改成2的话 就不会做代码分割了</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        maxAsyncRequests: <span class="number">6</span>,<span class="comment">// 最大的代码分割数 比如说你引入了7个 但是这里设置6  只会对前6个做分割</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        maxInitialRequests: <span class="number">4</span>,<span class="comment">// 整个网站首页加载的时候的最大引入数</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        automaticNameDelimiter: <span class="string">'~'</span>, <span class="comment">// 打包后文件名字的连接符号</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        automaticNameMaxLength: <span class="number">30</span>, <span class="comment">// 设置块名称的最大字符</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        name:<span class="literal">true</span>, <span class="comment">// 指的是下面的filename的名字生效</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        cacheGroups: &#123; <span class="comment">// 缓存组 代码分割后的非业务逻辑代码打包到一起 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">          vendors: &#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">            test: <span class="regexp">/[\\/]node_modules[\\/]/</span>, <span class="comment">//检测是否在node_modules目录</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            priority: <span class="number">-20</span>, <span class="comment">// 这个是优先级和下面default的priority做对比</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 引入的lodash符合在nodemodules下面 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// filename:'[name].bundle.js'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            name:<span class="string">'vendor'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">          &#125;,</span></pre></td></tr><tr><td class="code"><pre><span class="line">          <span class="keyword">default</span>: &#123;<span class="comment">// 检测的是没有在node_modules 目录下的时候的处理</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            minChunks: <span class="number">2</span>,<span class="comment">// 引入块的最小值</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            priority: <span class="number">-10</span>,<span class="comment">// 优先级</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 引入的lodash也符合在default 所有的模块都符合 此时就是比较权重了</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 注意哪怕这里的权重比上面的高 但是被上面的test匹配到了之后还是会走上面的</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            reuseExistingChunk: <span class="literal">true</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 比如说有两个模块 a 和 b a里面引入的有b </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 正常来说打包a的话会把b也打包进去</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 但是假如说以前b已经被打包过了 那么就不会再次被打包进去了</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            name:<span class="string">'common'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">          &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/webpack/" class="article-tag-list-link color3">webpack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/16/splitChunks%E7%9A%84%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-webpack-codeSpliting" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/12/webpack-codeSpliting/">webpack之code-spliting</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/12/webpack-codeSpliting/" class="archive-article-date">
+  	<time datetime="2019-12-12T04:00:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>好比说项目中引入了lodash<br>lodash 和 我们的逻辑代码就可以做一个分割</p>
+</li>
+<li><p>优点<br>每次加载的文件的大小基本没变  只不过分两次加载<br>但是由于浏览器有缓存的原因 比如第三方的lodash分开加载的话<br>由于浏览器缓存的原因没有做改变的话是不会重新加载的这样一来就增加了开发效率</p>
+</li>
+<li><p>在webpack中的配置截图如下<br><img src="/assets/img/webpack-code-spliting.png" alt="code spliting"></p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/webpack/" class="article-tag-list-link color3">webpack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/12/webpack-codeSpliting/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-es6-reflect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -893,160 +1047,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/12/06/js%E9%9D%A2%E8%AF%95%E9%A2%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-splitChunks的配置详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/04/splitChunks%E7%9A%84%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/">webpack之splitChunks的配置详解</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/04/splitChunks%E7%9A%84%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2019-12-04T08:12:51.233Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">optimization:&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    splitChunks:&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        chunks: <span class="string">'all'</span>, <span class="comment">// all 所有 async 异步 initial 同步</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        minSize: <span class="number">30000</span>,<span class="comment">// 最小的字节大小这里是30kb</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="comment">// maxSize: 0,// 最大的 这一项一般不用 意思是假设打包的有1mb 这里设置500000 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="comment">// 会尝试进行二次的拆分</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        minChunks: <span class="number">1</span>, <span class="comment">// 引入的块的最小值 比如说这里只引入了lodash如果这里改成2的话 就不会做代码分割了</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        maxAsyncRequests: <span class="number">6</span>,<span class="comment">// 最大的代码分割数 比如说你引入了7个 但是这里设置6  只会对前6个做分割</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        maxInitialRequests: <span class="number">4</span>,<span class="comment">// 整个网站首页加载的时候的最大引入数</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        automaticNameDelimiter: <span class="string">'~'</span>, <span class="comment">// 打包后文件名字的连接符号</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        automaticNameMaxLength: <span class="number">30</span>, <span class="comment">// 设置块名称的最大字符</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        name:<span class="literal">true</span>, <span class="comment">// 指的是下面的filename的名字生效</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        cacheGroups: &#123; <span class="comment">// 缓存组 代码分割后的非业务逻辑代码打包到一起 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">          vendors: &#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">            test: <span class="regexp">/[\\/]node_modules[\\/]/</span>, <span class="comment">//检测是否在node_modules目录</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            priority: <span class="number">-20</span>, <span class="comment">// 这个是优先级和下面default的priority做对比</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 引入的lodash符合在nodemodules下面 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// filename:'[name].bundle.js'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            name:<span class="string">'vendor'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">          &#125;,</span></pre></td></tr><tr><td class="code"><pre><span class="line">          <span class="keyword">default</span>: &#123;<span class="comment">// 检测的是没有在node_modules 目录下的时候的处理</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            minChunks: <span class="number">2</span>,<span class="comment">// 引入块的最小值</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            priority: <span class="number">-10</span>,<span class="comment">// 优先级</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 引入的lodash也符合在default 所有的模块都符合 此时就是比较权重了</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 注意哪怕这里的权重比上面的高 但是被上面的test匹配到了之后还是会走上面的</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            reuseExistingChunk: <span class="literal">true</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 比如说有两个模块 a 和 b a里面引入的有b </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 正常来说打包a的话会把b也打包进去</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// 但是假如说以前b已经被打包过了 那么就不会再次被打包进去了</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            name:<span class="string">'common'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">          &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/webpack/" class="article-tag-list-link color3">webpack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/04/splitChunks%E7%9A%84%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-webpack-codeSpliting" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/03/webpack-codeSpliting/">webpack之code-spliting</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/03/webpack-codeSpliting/" class="archive-article-date">
-  	<time datetime="2019-12-03T09:23:29.138Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>好比说项目中引入了lodash<br>lodash 和 我们的逻辑代码就可以做一个分割</p>
-</li>
-<li><p>优点<br>每次加载的文件的大小基本没变  只不过分两次加载<br>但是由于浏览器有缓存的原因 比如第三方的lodash分开加载的话<br>由于浏览器缓存的原因没有做改变的话是不会重新加载的这样一来就增加了开发效率</p>
-</li>
-<li><p>在webpack中的配置截图如下<br><img src="/assets/img/webpack-code-spliting.png" alt="code spliting"></p>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/webpack/" class="article-tag-list-link color3">webpack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/03/webpack-codeSpliting/">展开全文 >></a>
         </p>
       
 
