@@ -135,6 +135,161 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-其他/解决乱码的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/09/%E5%85%B6%E4%BB%96/%E8%A7%A3%E5%86%B3%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/">vscode解决乱码的方法</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/09/%E5%85%B6%E4%BB%96/%E8%A7%A3%E5%86%B3%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2020-01-09T08:36:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="下载一个插件即可"><a href="#下载一个插件即可" class="headerlink" title="下载一个插件即可"></a>下载一个插件即可</h1><ul>
+<li>插件的名字是 GBKtoUTF8</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/其他/" class="article-tag-list-link color3">其他</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/09/%E5%85%B6%E4%BB%96/%E8%A7%A3%E5%86%B3%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-js高级进阶/caller和callee的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/09/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/caller%E5%92%8Ccallee%E7%9A%84%E5%8C%BA%E5%88%AB/">caller和callee的区别</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/09/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/caller%E5%92%8Ccallee%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2020-01-09T08:02:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="caller的理解"><a href="#caller的理解" class="headerlink" title="caller的理解"></a>caller的理解</h1><ul>
+<li>caller 返回一个<strong>调用当前函数的引用</strong> 如果是由顶层调用的话 则返回null<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> callerTest = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(callerTest.caller);<span class="comment">// 这里输出是谁调用了你 就输出谁 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    callerTest()</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">a() <span class="comment">// 输出function a() &#123;callerTest();&#125;</span></span></pre></td></tr></table></figure>
+<h1 id="callee的理解"><a href="#callee的理解" class="headerlink" title="callee的理解"></a>callee的理解</h1></li>
+<li>callee返回以个正在被执行函数的引用(常用在递归匿名函数本身)</li>
+<li>callee是arguments对象的一个成员 表示对函数对象本身的引用 它有个length属性（代表形参的长度）<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> c = <span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>.length,<span class="built_in">arguments</span>.callee.length,<span class="built_in">arguments</span>.callee)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 3 2 ƒ (x,y)&#123;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">//     console.log(arguments.length,arguments.callee.length,arguments.callee)</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">//     // 实参长度 形参长度 函数本身的引用</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">// &#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 实参长度 形参长度 函数本身的引用</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">c(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span></pre></td></tr></table></figure></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/js高级进阶/" class="article-tag-list-link color2">js高级进阶</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/09/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/caller%E5%92%8Ccallee%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-js高级进阶/严格模式和非严格模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -816,210 +971,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/12/10/es6/es6-reflect/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-es6/es6对象的扩展Symbol-Set数据结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/09/es6/es6%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95Symbol-Set%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">es6-对象的扩展Symbol Set数据结构</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/09/es6/es6%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95Symbol-Set%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2019-12-09T02:22:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="对象的扩展方法"><a href="#对象的扩展方法" class="headerlink" title="对象的扩展方法"></a>对象的扩展方法</h1><h2 id="属性的简写"><a href="#属性的简写" class="headerlink" title="属性的简写"></a>属性的简写</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="string">'a'</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;a&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// const obj = &#123;a:a&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(obj);</span></pre></td></tr></table></figure>
-<h2 id="方法的简写"><a href="#方法的简写" class="headerlink" title="方法的简写"></a>方法的简写</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> o = &#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    say()&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">return</span> <span class="string">'我是chris'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(o.say());</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 谁用我我就指向谁</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'全局'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    name:<span class="string">'张三'</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">    say()&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="string">`我的名字是<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">person.say()</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> res = person.say; <span class="comment">// 全局</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">res()</span></pre></td></tr></table></figure>
-<h2 id="属性名表达式"><a href="#属性名表达式" class="headerlink" title="属性名表达式"></a>属性名表达式</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 让属性和变量挂钩</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    [key]:<span class="literal">true</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">    [<span class="string">'o'</span>+<span class="string">'b'</span>]:<span class="number">123</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">    [<span class="string">`ok`</span>]:<span class="number">456</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(obj1);</span></pre></td></tr></table></figure>
-<h2 id="super-关键字"><a href="#super-关键字" class="headerlink" title="super 关键字"></a>super 关键字</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> proto = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    foo:<span class="string">'土豆'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// const oProto = &#123;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//     foo:'西红柿',</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//     find()&#123;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//         return super.foo</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//     &#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// &#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// // proto 是 oProto的原型</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// Object.setPrototypeOf(oProto,proto) // __proto__</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// console.log(oProto.find()); // </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// const oProto = &#123;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//     foo:super.foo</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// &#125;</span></span></pre></td></tr></table></figure>
-<h3 id="对象的扩展运算符-…"><a href="#对象的扩展运算符-…" class="headerlink" title="对象的扩展运算符 …"></a>对象的扩展运算符 …</h3><h4 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 打包</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// let &#123;x,y:y,...z&#125; = &#123;x:1,y:2,a:3,b:4&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// console.log(z);</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 等号的右边必须是一个对象 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// let &#123;...h&#125; = undefined</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// let &#123;...v&#125; = null</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 数组的解构赋值 ... 有一个注意点 是...的位置</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// let &#123;...z,x,y&#125; = &#123;x:1,y:2,a:3,b:4&#125;</span></span></pre></td></tr></table></figure>
-<h4 id="拆包"><a href="#拆包" class="headerlink" title="拆包"></a>拆包</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 复制 浅拷贝 深拷贝</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// 数组的浅拷贝es5 用到的是什么  concat</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// 对象的扩展运算符 ...也是浅拷贝 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// 复制 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// let obj = &#123;a:1&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// // let obj1 = obj;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// // obj1.a = 2;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// // console.log(obj);</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// // 浅拷贝</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// let obj1 = &#123;...obj&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// obj1.a = 2;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// console.log(obj);</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// // es5 实现浅拷贝 类比concat </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// let person = &#123;name:'张三',age:12&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// let person2 = Object.assign(&#123;&#125;,person)</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// person2.name = '王五'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// console.log(person);</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// let &#123;a,b,...z&#125; = &#123;c:1,b:2,a:3,d:4&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// console.log(z);</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// 是不是深拷贝？ 不是！！！ </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">let</span> obj = &#123;<span class="attr">a</span>:&#123;<span class="attr">b</span>:<span class="number">1</span>&#125;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">let</span> obj1 = &#123;...obj&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">   obj1.a.b =<span class="number">2</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(obj);</span></pre></td></tr></table></figure>
-<h1 id="Symbol数据结构"><a href="#Symbol数据结构" class="headerlink" title="Symbol数据结构"></a>Symbol数据结构</h1><h2 id="概念以及引入的原因"><a href="#概念以及引入的原因" class="headerlink" title="概念以及引入的原因"></a>概念以及引入的原因</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 新提出的一个数据结构 Symbol 基本数据类型</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// Symbol表示独一无二 第七种数据类型</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// 作用？ </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// 对象的属性是字符串 对象的话隐式调用toString 转化成字符串</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">let</span> a = &#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">let</span> b = &#123;<span class="attr">b</span>:<span class="number">2</span>&#125;;</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">let</span> c = &#123;&#125;;</span></pre></td></tr><tr><td class="code"><pre><span class="line">   c[a] = <span class="number">3</span>; <span class="comment">// [object Object]</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   c[b] = <span class="number">4</span>; <span class="comment">// [object Object]</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(c);</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// ? 怎么解决 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">let</span> s = <span class="built_in">Symbol</span>()</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(<span class="keyword">typeof</span> s); <span class="comment">// 第七种一般数据类型</span></span></pre></td></tr></table></figure>
-<h2 id="接收字符串作为参数"><a href="#接收字符串作为参数" class="headerlink" title="接收字符串作为参数"></a>接收字符串作为参数</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">Symbol</span>(<span class="string">'a'</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> s2 = <span class="built_in">Symbol</span>(<span class="string">'b'</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(s1);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(s2);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(s1.toString());</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(s2.toString());</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> s3 = <span class="built_in">Symbol</span>(&#123;&#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(s3);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 传入的参数只是值得描述 即使传入的值是一样的 返回值也是不相等的</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> s4 = <span class="built_in">Symbol</span>()</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> s5 = <span class="built_in">Symbol</span>();</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(s4 === s5);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> s6 = <span class="built_in">Symbol</span>(<span class="string">'a'</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> s7 = <span class="built_in">Symbol</span>(<span class="string">'a'</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(s6 === s7);</span></pre></td></tr></table></figure>
-<h2 id="不能与其他类型的值进行计算"><a href="#不能与其他类型的值进行计算" class="headerlink" title="不能与其他类型的值进行计算"></a>不能与其他类型的值进行计算</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> sym = <span class="built_in">Symbol</span>(<span class="string">'my Symbol'</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="string">'my symbol is'</span> + sym</span></pre></td></tr></table></figure>
-<h2 id="Symbol可以显示转化为字符串"><a href="#Symbol可以显示转化为字符串" class="headerlink" title="Symbol可以显示转化为字符串"></a>Symbol可以显示转化为字符串</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">Symbol</span>(<span class="string">'a'</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s2 = <span class="built_in">Symbol</span>(<span class="string">'b'</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(s1);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(s2);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(s1.toString());</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(s1));</span></pre></td></tr></table></figure>
-<h2 id="Symbol可以转为布尔值-但是不能转化成数值"><a href="#Symbol可以转为布尔值-但是不能转化成数值" class="headerlink" title="Symbol可以转为布尔值 但是不能转化成数值"></a>Symbol可以转为布尔值 但是不能转化成数值</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">let</span> symb = <span class="built_in">Symbol</span>();</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log( !<span class="built_in">Boolean</span>(symb));</span></pre></td></tr></table></figure>
-<h2 id="Symbol-iterator-属性"><a href="#Symbol-iterator-属性" class="headerlink" title="Symbol.iterator 属性"></a>Symbol.iterator 属性</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">对象的<span class="built_in">Symbol</span>.iterator属性 指向该对象的默认遍历器的方法 <span class="keyword">for</span>...of 循环的时候会调用<span class="built_in">Symbol</span>.iterator</span></pre></td></tr></table></figure>
-<h2 id="Object-getOwnPropertySymbols"><a href="#Object-getOwnPropertySymbols" class="headerlink" title="Object.getOwnPropertySymbols()"></a>Object.getOwnPropertySymbols()</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;&#125;;</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">let</span> sym1 = <span class="built_in">Symbol</span>(<span class="string">'a'</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">let</span> sym2 = <span class="built_in">Symbol</span>(<span class="string">'b'</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">   obj[sym1] = <span class="string">'hello'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   obj[sym2] = <span class="string">'world'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// Object.getOwnPropertySymbols() 返回一个数组 里面的值是所有用作属性名的Symbol的值</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">const</span> arr = <span class="built_in">Object</span>.getOwnPropertySymbols(obj)</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(arr);</span></pre></td></tr></table></figure>
-<h2 id="作用实例-常量枚举-私有属性"><a href="#作用实例-常量枚举-私有属性" class="headerlink" title="作用实例 常量枚举 私有属性"></a>作用实例 常量枚举 私有属性</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    // js没有枚举类型 用到枚举案例的时候可以用到 Symbol类型</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//    const CODE_ONE = 1; // 汽车的颜色 红色</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//    const CODE_TWO = 1;// 蓝色</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//    const CODE_THREE = 3;// 黑色</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//    const CODE_ONE = Symbol('a'); // 汽车的颜色 红色</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//    const CODE_TWO = Symbol('b');// 蓝色</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//    const CODE_THREE = Symbol('b');// 黑色</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//    // 会实现私有属性</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">const</span> private = <span class="built_in">Symbol</span>(<span class="string">'private'</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">const</span> obj = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">       <span class="comment">// 私有属性</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        _name:<span class="string">'张三'</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">        [private]:<span class="string">'私有的属性'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(obj));</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// 到底怎么实现私有属性呢？ class  里面的一些东西 会详细讲到</span></span></pre></td></tr></table></figure>
-<h1 id="Set数据结构"><a href="#Set数据结构" class="headerlink" title="Set数据结构"></a>Set数据结构</h1><h2 id="Set是什么"><a href="#Set是什么" class="headerlink" title="Set是什么"></a>Set是什么</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Set是es6新提出的一个新的引用数据类型 类似于数组 但是成员是唯一的 没有重复的值</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 和对象里面的 get  set 不一样</span></span></pre></td></tr></table></figure>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 基本用法</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> <span class="keyword">set</span> = new Set([1,2,3,4,5,6,5])</span></pre></td></tr><tr><td class="code"><pre><span class="line">    console.log(<span class="keyword">set</span>);</span></pre></td></tr></table></figure>
-<h2 id="证明set是js新的引用数据类型"><a href="#证明set是js新的引用数据类型" class="headerlink" title="证明set是js新的引用数据类型"></a>证明set是js新的引用数据类型</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;<span class="attr">name</span>:<span class="string">'张三'</span>&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> nu = <span class="literal">null</span> <span class="comment">// 历史遗留问题</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> arr);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> obj);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> nu);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 证明 arr是数组  obj 是对象</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// instanceof </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// Object.prototype.toString.call(arr)</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(obj <span class="keyword">instanceof</span> <span class="built_in">Object</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(arr)); <span class="comment">// string [object Array]</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(obj)); <span class="comment">// string [object Object]</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">set</span> = new Set([1,2,3,4,5,6,5])</span></pre></td></tr><tr><td class="code"><pre><span class="line">console.log(<span class="keyword">set</span> instanceof Set);</span></pre></td></tr><tr><td class="code"><pre><span class="line">console.log(Object.prototype.toString.call(<span class="keyword">set</span>) === '[object Set]');</span></pre></td></tr></table></figure>
-<h2 id="转化成数组"><a href="#转化成数组" class="headerlink" title="转化成数组"></a>转化成数组</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 转化成数组</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> <span class="keyword">set</span> = new Set([1,2,3,4,5,6,5])</span></pre></td></tr><tr><td class="code"><pre><span class="line">    // 数组去重的方法</span></pre></td></tr><tr><td class="code"><pre><span class="line">    console.log([...<span class="keyword">set</span>]);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    console.log(Array.from(<span class="keyword">set</span>));</span></pre></td></tr></table></figure>
-<h2 id="Set数据内部判断值得机制"><a href="#Set数据内部判断值得机制" class="headerlink" title="Set数据内部判断值得机制"></a>Set数据内部判断值得机制</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Set数据内部判断值得机制 类似于 === </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> newSet = <span class="keyword">new</span> <span class="built_in">Set</span>()</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> a = <span class="number">5</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> b = <span class="string">'5'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    newSet.add(a)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    newSet.add(b)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// ? 里面有几项 ？</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(newSet);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 特殊情况NaN </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 因为 NaN === NaN </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    newSet.add(<span class="literal">NaN</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    newSet.add(<span class="literal">NaN</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(newSet);</span></pre></td></tr></table></figure>
-<h2 id="Set实例的属性和方法"><a href="#Set实例的属性和方法" class="headerlink" title="Set实例的属性和方法"></a>Set实例的属性和方法</h2><h3 id="Set的属性"><a href="#Set的属性" class="headerlink" title="Set的属性"></a>Set的属性</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> lastSet = <span class="keyword">new</span> <span class="built_in">Set</span>()</span></pre></td></tr><tr><td class="code"><pre><span class="line">lastSet.add(<span class="number">1</span>).add(<span class="number">2</span>).add(<span class="number">2</span>).add(<span class="string">'2'</span>).add(<span class="literal">NaN</span>).add(<span class="literal">NaN</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(lastSet.size);</span></pre></td></tr></table></figure>
-<h3 id="add-delete-has-clear"><a href="#add-delete-has-clear" class="headerlink" title="add delete has clear"></a>add delete has clear</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> lastSet = <span class="keyword">new</span> <span class="built_in">Set</span>()</span></pre></td></tr><tr><td class="code"><pre><span class="line">   lastSet.add(<span class="number">1</span>).add(<span class="number">2</span>).add(<span class="number">2</span>).add(<span class="string">'2'</span>).add(<span class="literal">NaN</span>).add(<span class="literal">NaN</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(lastSet.size);</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// 判断是否有这一项</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(lastSet.has(<span class="number">2</span>));</span></pre></td></tr><tr><td class="code"><pre><span class="line">   lastSet.clear()</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(lastSet);</span></pre></td></tr></table></figure>
-<h3 id="方法forEach"><a href="#方法forEach" class="headerlink" title="方法forEach()"></a>方法forEach()</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">set</span> = new Set([1, 4, 9]);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>.forEach((value, key) =&gt; console.log(key + ' : ' + value))</span></pre></td></tr><tr><td class="code"><pre><span class="line">// 1 : 1// 4 : 4// 9 : 9</span></pre></td></tr></table></figure>
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/09/es6/es6%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95Symbol-Set%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-es6/es6字符串数组的扩展" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/07/es6/es6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/">es6-字符串数组的扩展方法</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/07/es6/es6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" class="archive-article-date">
-  	<time datetime="2019-12-07T05:05:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="字符串的扩展方法"><a href="#字符串的扩展方法" class="headerlink" title="字符串的扩展方法"></a>字符串的扩展方法</h1><h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h2><h3 id="简便换行和嵌入变量操作"><a href="#简便换行和嵌入变量操作" class="headerlink" title="简便换行和嵌入变量操作"></a>简便换行和嵌入变量操作</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 简便换行</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> s1 = <span class="string">'我爱我的祖国\n和我的母亲'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(s1);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> s2 = <span class="string">`我爱我的祖国</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="string">和我的母亲`</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(s2);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> a = <span class="string">'和我的母亲'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> b = <span class="string">'我爱我的祖国'</span>+a+<span class="string">'还有我的妻子'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(b);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> b1 = <span class="string">`我爱我的祖国<span class="subst">$&#123;a&#125;</span>还有我的妻子`</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(b1);</span></pre></td></tr></table></figure>
-<h3 id="调用函数"><a href="#调用函数" class="headerlink" title="调用函数"></a>调用函数</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 调用函数</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">       <span class="keyword">return</span> <span class="string">'祖国'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(<span class="string">`亲爱的<span class="subst">$&#123;fn()&#125;</span>你好`</span>);</span></pre></td></tr></table></figure>
-<h3 id="模板字符串嵌套"><a href="#模板字符串嵌套" class="headerlink" title="模板字符串嵌套"></a>模板字符串嵌套</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 支持嵌套</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">const</span> str = <span class="function">(<span class="params">arr</span>)=&gt;</span><span class="string">`</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="string">   我是一级字符串</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="string">   <span class="subst">$&#123;arr.map(v=&gt;<span class="string">`<span class="subst">$&#123;v&#125;</span>`</span>)&#125;</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="string">   `</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(str(arr));</span></pre></td></tr></table></figure>
-<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">`\``</span></span></pre></td></tr></table></figure>
-<h2 id="新增的实例方法"><a href="#新增的实例方法" class="headerlink" title="新增的实例方法"></a>新增的实例方法</h2><h3 id="includes-startsWith-endsWith"><a href="#includes-startsWith-endsWith" class="headerlink" title="includes() startsWith() endsWith()"></a>includes() startsWith() endsWith()</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// includes()返回布尔值  startsWith() endsWith()</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">let</span> s = <span class="string">'hello world'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(s.includes(<span class="string">'o'</span>));</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(s.includes(<span class="string">'p'</span>));</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(s.startsWith(<span class="string">'hello'</span>));</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(s.endsWith(<span class="string">'world'</span>));</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="comment">// 支持第二个参数 表示开始搜索的位置 从o0开始的</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log( s.startsWith(<span class="string">'world'</span>,<span class="number">6</span>));</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log( s.startsWith(<span class="string">'world'</span>,<span class="number">7</span>));</span></pre></td></tr></table></figure>
-<h3 id="repeat"><a href="#repeat" class="headerlink" title="repeat()"></a>repeat()</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// repeat()</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(<span class="string">'x'</span>.repeat(<span class="number">3</span>));</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(<span class="string">'hello'</span>.repeat(<span class="number">3</span>));</span></pre></td></tr></table></figure>
-<h3 id="padStart-padEnd"><a href="#padStart-padEnd" class="headerlink" title="padStart() padEnd()"></a>padStart() padEnd()</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'x'</span>.padStart(<span class="number">5</span>,<span class="string">'ab'</span>)); <span class="comment">// 总得长度 从开始位置填充的东西</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"> <span class="comment">// 提示字符串的格式</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'17'</span>.padStart(<span class="number">10</span>,<span class="string">'YYYY-MM-DD'</span>));</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'12-06'</span>.padStart(<span class="number">10</span>,<span class="string">'YYYY-MM-DD'</span>));</span></pre></td></tr></table></figure>
-<h2 id="数组的扩展方法"><a href="#数组的扩展方法" class="headerlink" title="数组的扩展方法"></a>数组的扩展方法</h2><h3 id="展开运算符-…-拆包"><a href="#展开运算符-…-拆包" class="headerlink" title="展开运算符 … 拆包"></a>展开运算符 … 拆包</h3><h4 id="函数调用的体现"><a href="#函数调用的体现" class="headerlink" title="函数调用的体现"></a>函数调用的体现</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">a,b,c</span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(a);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(b);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(c);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> args = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// f.apply(null,args)</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 拆包</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(...args);</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    f(...args)</span></pre></td></tr></table></figure>
-<h4 id="后面可以放表达式"><a href="#后面可以放表达式" class="headerlink" title="后面可以放表达式"></a>后面可以放表达式</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> arr = [</span></pre></td></tr><tr><td class="code"><pre><span class="line">        ...(a&gt;<span class="number">0</span>? [<span class="string">'a'</span>]: [])</span></pre></td></tr><tr><td class="code"><pre><span class="line">    ]</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(arr);</span></pre></td></tr></table></figure>
-<h4 id="替代函数的apply方法"><a href="#替代函数的apply方法" class="headerlink" title="替代函数的apply方法"></a>替代函数的apply方法</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 思考连接两个数组的方法</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">let</span> arr1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="keyword">let</span> arr2 = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(arr1.concat(arr2));</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(arr1);</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// ? 想让原来的数组改变 // es5的想到的话  你的基本功也很扎实</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// es5 解决办法</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">Array</span>.prototype.push.apply(arr1,arr2);</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(arr1);</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// es6 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// (...arr1) += (...arr2)</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// 扩展运算符只有函数调用的时候才可以放在圆括号当中</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// (...[1,2])</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="comment">// console.log((...[1,2]));</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">   </span></pre></td></tr><tr><td class="code"><pre><span class="line">   arr1.push(...arr2);</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="built_in">console</span>.log(arr1);</span></pre></td></tr></table></figure>
-<h4 id="复制数组"><a href="#复制数组" class="headerlink" title="复制数组"></a>复制数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a1 = [<span class="number">1</span>,<span class="number">2</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a2 = a1;<span class="comment">// 复制</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a1 === a2);<span class="comment">// 指向同一个房间</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// a2[0] = 2</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// console.log(a1);// 是不是浅克隆？这不是浅克隆 这叫复制</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 浅克隆是长得一样 但是地址不一样</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a3 = a1.concat()<span class="comment">// 浅拷贝</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a3);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a1 === a3);<span class="comment">// 没有指向同一个房间 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a4 = [...a1]</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a4);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a4 === a1);<span class="comment">// 浅拷贝</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 展开运算符是浅拷贝 而不是 深拷贝</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;,<span class="number">2</span>,<span class="number">3</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// let arr1 = [...arr] // 是深拷贝嘛？</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// arr1[0].a = 2</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// // 如果此时arr[0].a = 2 说明是浅拷贝 不等于2 说明是深拷贝</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// console.log(arr); // </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 深拷贝 除了递归能实现</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr2 = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(arr))</span></pre></td></tr><tr><td class="code"><pre><span class="line">arr2[<span class="number">0</span>].a = <span class="number">2</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 如果此时arr[0].a = 2 说明是浅拷贝 不等于2 说明是深拷贝</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(arr);</span></pre></td></tr></table></figure>
-<p><img src="/assets/img/copy.png" alt="复制 浅克隆 深克隆的解释"></p>
-<h3 id="…打包"><a href="#…打包" class="headerlink" title="…打包"></a>…打包</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// const [first,...arr] = [1,2,3,4,5]</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(arr);</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// const [o,...s] = [];</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(o) // undefined</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(s) // []</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 只能放在参数的最后一位</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// const [...arr,first] = [1,2,3,4,5]</span></span></pre></td></tr></table></figure>
-<h3 id="Array-from"><a href="#Array-from" class="headerlink" title="Array.from()"></a>Array.from()</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Array.from() 用于把类数组对象转化成真正的数组</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 部署了 iterator 接口 都可以用Array.from()转化成真正的数组</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 有 length属性 没有数组操作的一些方法 push</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">a,b,c</span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">Array</span>.from(<span class="built_in">arguments</span>));</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">get</span>(1,2,3)</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    const copyArr = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="string">'0'</span>:<span class="string">'a'</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="string">'1'</span>:<span class="string">'b'</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">        length:<span class="number">2</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Array</span>.from(copyArr));</span></pre></td></tr></table></figure>
-<h3 id="Array-of"><a href="#Array-of" class="headerlink" title="Array.of()"></a>Array.of()</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 可以将一组值转化成数组</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Array</span>.of(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>));</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// ？ 弥补数组构造函数的一些不足</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Array</span>(<span class="number">3</span>).length);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 当参数不少于2个时候 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>));</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Array</span>.of(<span class="number">3</span>));</span></pre></td></tr></table></figure>
-<h3 id="copyWithin"><a href="#copyWithin" class="headerlink" title="copyWithin()"></a>copyWithin()</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// copyWithin()</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 1 必须要传的 从该位置开始替换数据</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 2 start 从该位置读取数据 默认是0</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 3 end</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>].copyWithin(<span class="number">0</span>,<span class="number">3</span>)); <span class="comment">// [4,5,3,4,5]</span></span></pre></td></tr></table></figure>
-<h3 id="find-findIndex"><a href="#find-findIndex" class="headerlink" title="find() findIndex()"></a>find() findIndex()</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">-1</span>,<span class="number">-2</span>,<span class="number">45</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">let</span> res = arr.find(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      <span class="keyword">return</span> i&lt;<span class="number">0</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(res);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">let</span> resIndex = arr.findIndex(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      <span class="keyword">return</span> i&lt;<span class="number">0</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(resIndex)</span></pre></td></tr></table></figure>
-<h1 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h1><p>分别用 includes() find() findIndex()实现数组的去重 </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">89</span>,<span class="number">45</span>,<span class="number">23</span>,<span class="number">1</span>]</span></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/07/es6/es6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/">展开全文 >></a>
         </p>
       
 
