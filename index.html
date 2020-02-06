@@ -135,6 +135,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-js设计模式/单例模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/06/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">单例模式</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/06/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
+  	<time datetime="2020-02-06T08:41:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="通用惰性单例"><a href="#通用惰性单例" class="headerlink" title="通用惰性单例"></a>通用惰性单例</h1><ul>
+<li>以创建页面上的一个弹窗为例<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> createLoginLayer = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> div; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">if</span> ( !div )&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">        div = <span class="built_in">document</span>.createElement( <span class="string">'div'</span> ); </span></pre></td></tr><tr><td class="code"><pre><span class="line">        div.innerHTML = <span class="string">'我是登录浮窗'</span>; </span></pre></td></tr><tr><td class="code"><pre><span class="line">        div.style.display = <span class="string">'none'</span>; </span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">document</span>.body.appendChild( div ); </span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> div; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125; </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;)();</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById( <span class="string">'loginBtn'</span> ).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> loginLayer = createLoginLayer(); </span></pre></td></tr><tr><td class="code"><pre><span class="line">    loginLayer.style.display = <span class="string">'block'</span>; </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr></table></figure></li>
+<li>上面传统单例模式带来的弊端是 加入页面还要嵌入一个iframe那么以上代码几乎要重新写一遍<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> createIframeLayer = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> iframe; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">if</span> ( !iframe )&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">        iframe = <span class="built_in">document</span>.createElement( <span class="string">'iframe'</span> ); </span></pre></td></tr><tr><td class="code"><pre><span class="line">        iframe.style.display = <span class="string">'none'</span>; </span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">document</span>.body.appendChild( iframe ); </span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> iframe; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125; </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;)();</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById( <span class="string">'iframeBtn'</span> ).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> iframeLayer = createIframeLayer(); </span></pre></td></tr><tr><td class="code"><pre><span class="line">    iframeLayer.style.display = <span class="string">'block'</span>; </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr></table></figure></li>
+<li>我们可以利用闭包把真正的单例模式的核心代码抽离出来<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 把单例模式的核心代码抽离出来</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"> <span class="comment">// 这里面巧妙的用到了闭包的功能</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"> <span class="keyword">var</span> getSingle = <span class="function"><span class="keyword">function</span>(<span class="params"> fn </span>)</span>&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">     <span class="keyword">var</span> result; </span></pre></td></tr><tr><td class="code"><pre><span class="line">     <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">         <span class="keyword">return</span> result || ( result = fn .apply(<span class="keyword">this</span>, <span class="built_in">arguments</span> ) ); </span></pre></td></tr><tr><td class="code"><pre><span class="line">     &#125; </span></pre></td></tr><tr><td class="code"><pre><span class="line"> &#125;;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"> <span class="keyword">var</span> createLoginLayer = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">     <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement( <span class="string">'div'</span> ); </span></pre></td></tr><tr><td class="code"><pre><span class="line">     div.innerHTML = <span class="string">'我是登录浮窗'</span>; </span></pre></td></tr><tr><td class="code"><pre><span class="line">     div.style.display = <span class="string">'none'</span>; </span></pre></td></tr><tr><td class="code"><pre><span class="line">     <span class="built_in">document</span>.body.appendChild( div ); </span></pre></td></tr><tr><td class="code"><pre><span class="line">     <span class="keyword">return</span> div; </span></pre></td></tr><tr><td class="code"><pre><span class="line"> &#125;;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"> <span class="keyword">var</span> createSingleLoginLayer = getSingle( createLoginLayer ); </span></pre></td></tr><tr><td class="code"><pre><span class="line"> <span class="built_in">document</span>.getElementById( <span class="string">'loginBtn'</span> ).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span></pre></td></tr><tr><td class="code"><pre><span class="line">     <span class="keyword">var</span> loginLayer = createSingleLoginLayer(); </span></pre></td></tr><tr><td class="code"><pre><span class="line">     loginLayer.style.display = <span class="string">'block'</span>; </span></pre></td></tr><tr><td class="code"><pre><span class="line"> &#125;;</span></pre></td></tr></table></figure></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/js设计模式/" class="article-tag-list-link color2">js设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/06/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-其他/解决乱码的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -889,88 +967,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/12/12/webpack/webpack-codeSpliting/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-es6/es6-reflect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/10/es6/es6-reflect/">es6-reflect</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/10/es6/es6-reflect/" class="archive-article-date">
-  	<time datetime="2019-12-10T09:25:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h1><h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><p>为操作对象而提供的新API</p>
-<h2 id="为什么要设计Reflect？"><a href="#为什么要设计Reflect？" class="headerlink" title="为什么要设计Reflect？"></a>为什么要设计Reflect？</h2><ul>
-<li>将Object对象的属于语言内部的方法放到Reflect对象上，即从Reflect对象上拿Object对象内部方法。</li>
-<li>让Object操作变成函数行为<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 以前</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;<span class="attr">name</span>:<span class="string">'张三'</span>&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'name'</span> <span class="keyword">in</span> obj); <span class="comment">// true</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 现在</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Reflect</span>.has(obj,<span class="string">'name'</span>)); <span class="comment">// true</span></span></pre></td></tr></table></figure></li>
-<li>Reflect 与 Proxy 是相辅相成的 在Proxy上有的方法 在 Reflect上就一定有<h2 id="Reflect的api-和proxy的api一致"><a href="#Reflect的api-和proxy的api一致" class="headerlink" title="Reflect的api 和proxy的api一致"></a>Reflect的api 和proxy的api一致</h2></li>
-<li>Reflect.get(target,property,receiver)查找并返回target对象的property属性<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  name:<span class="string">"chris"</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result=<span class="built_in">Reflect</span>.get(obj,<span class="string">"name"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(result) <span class="comment">//chris</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="comment">//属性yu部署了getter读取函数</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">get</span> yu()&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//this返回的是Reflect.get的receiver参数对象</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name+<span class="keyword">this</span>.age</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> receiver=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  name:<span class="string">"shen"</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  age:<span class="string">"18"</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result=<span class="built_in">Reflect</span>.get(obj,<span class="string">"yu"</span>,receiver)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(result) <span class="comment">//shen18</span></span></pre></td></tr></table></figure></li>
-<li>Reflect.set(target,propName,propValue,receiver)设置target对象的propName属性为propValue<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  name:<span class="string">"chen"</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result=<span class="built_in">Reflect</span>.set(obj,<span class="string">"name"</span>,<span class="string">"shi"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(result) <span class="comment">//true</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(obj.name) <span class="comment">//shi</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  age:<span class="number">38</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">set</span> setAge(value)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.age=value</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> receiver=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  age:<span class="number">28</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result=<span class="built_in">Reflect</span>.set(obj,<span class="string">"setAge"</span>,<span class="number">18</span>,receiver)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(result) <span class="comment">//true</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(obj.age) <span class="comment">//38</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(receiver.age) <span class="comment">//18</span></span></pre></td></tr></table></figure></li>
-<li>Reflect.set与Proxy.set联合使用<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  name:<span class="string">"chen"</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> handler=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">set</span>(target,key,value,receiver)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Proxy拦截赋值操作"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//Reflect完成赋值操作</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">Reflect</span>.set(target,key,value,receiver)</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  defineProperty(target,key,attribute)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Proxy拦截定义属性操作"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//Reflect完成定义属性操作</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">Reflect</span>.defineProperty(target,key,attribute)</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> proxy=<span class="keyword">new</span> <span class="built_in">Proxy</span>(obj,handler)</span></pre></td></tr><tr><td class="code"><pre><span class="line">proxy.name=<span class="string">"ya"</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//Proxy拦截赋值操作</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//Proxy拦截定义属性操作</span></span></pre></td></tr></table></figure></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/10/es6/es6-reflect/">展开全文 >></a>
         </p>
       
 

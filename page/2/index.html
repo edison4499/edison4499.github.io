@@ -135,6 +135,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-es6/es6-reflect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/10/es6/es6-reflect/">es6-reflect</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/10/es6/es6-reflect/" class="archive-article-date">
+  	<time datetime="2019-12-10T09:25:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h1><h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><p>为操作对象而提供的新API</p>
+<h2 id="为什么要设计Reflect？"><a href="#为什么要设计Reflect？" class="headerlink" title="为什么要设计Reflect？"></a>为什么要设计Reflect？</h2><ul>
+<li>将Object对象的属于语言内部的方法放到Reflect对象上，即从Reflect对象上拿Object对象内部方法。</li>
+<li>让Object操作变成函数行为<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 以前</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;<span class="attr">name</span>:<span class="string">'张三'</span>&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'name'</span> <span class="keyword">in</span> obj); <span class="comment">// true</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 现在</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Reflect</span>.has(obj,<span class="string">'name'</span>)); <span class="comment">// true</span></span></pre></td></tr></table></figure></li>
+<li>Reflect 与 Proxy 是相辅相成的 在Proxy上有的方法 在 Reflect上就一定有<h2 id="Reflect的api-和proxy的api一致"><a href="#Reflect的api-和proxy的api一致" class="headerlink" title="Reflect的api 和proxy的api一致"></a>Reflect的api 和proxy的api一致</h2></li>
+<li>Reflect.get(target,property,receiver)查找并返回target对象的property属性<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  name:<span class="string">"chris"</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result=<span class="built_in">Reflect</span>.get(obj,<span class="string">"name"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(result) <span class="comment">//chris</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="comment">//属性yu部署了getter读取函数</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">get</span> yu()&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//this返回的是Reflect.get的receiver参数对象</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name+<span class="keyword">this</span>.age</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> receiver=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  name:<span class="string">"shen"</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  age:<span class="string">"18"</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result=<span class="built_in">Reflect</span>.get(obj,<span class="string">"yu"</span>,receiver)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(result) <span class="comment">//shen18</span></span></pre></td></tr></table></figure></li>
+<li>Reflect.set(target,propName,propValue,receiver)设置target对象的propName属性为propValue<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  name:<span class="string">"chen"</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result=<span class="built_in">Reflect</span>.set(obj,<span class="string">"name"</span>,<span class="string">"shi"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(result) <span class="comment">//true</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(obj.name) <span class="comment">//shi</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  age:<span class="number">38</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">set</span> setAge(value)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.age=value</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> receiver=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  age:<span class="number">28</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result=<span class="built_in">Reflect</span>.set(obj,<span class="string">"setAge"</span>,<span class="number">18</span>,receiver)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(result) <span class="comment">//true</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(obj.age) <span class="comment">//38</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(receiver.age) <span class="comment">//18</span></span></pre></td></tr></table></figure></li>
+<li>Reflect.set与Proxy.set联合使用<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  name:<span class="string">"chen"</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> handler=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">set</span>(target,key,value,receiver)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Proxy拦截赋值操作"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//Reflect完成赋值操作</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">Reflect</span>.set(target,key,value,receiver)</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  defineProperty(target,key,attribute)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Proxy拦截定义属性操作"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//Reflect完成定义属性操作</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">Reflect</span>.defineProperty(target,key,attribute)</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> proxy=<span class="keyword">new</span> <span class="built_in">Proxy</span>(obj,handler)</span></pre></td></tr><tr><td class="code"><pre><span class="line">proxy.name=<span class="string">"ya"</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//Proxy拦截赋值操作</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//Proxy拦截定义属性操作</span></span></pre></td></tr></table></figure></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/10/es6/es6-reflect/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-es6/es6对象的扩展Symbol-Set数据结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
