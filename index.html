@@ -135,6 +135,96 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-js高级进阶/防抖和节流" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/26/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/">js防抖和节流</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/26/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" class="archive-article-date">
+  	<time datetime="2020-02-26T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="防抖的理解"><a href="#防抖的理解" class="headerlink" title="防抖的理解"></a>防抖的理解</h1><p>当持续触发事件时，<strong>一定时间段内没有再触发事件</strong>，事件处理函数才会执行一次，如果设定的时间到来之前，又一次触发了事件，就重新开始延时</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn, wait</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> timeout = <span class="literal">null</span>;      <span class="comment">//定义一个定时器</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">if</span>(timeout !== <span class="literal">null</span>) </span></pre></td></tr><tr><td class="code"><pre><span class="line">                clearTimeout(timeout);  <span class="comment">//清除这个定时器</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        timeout = setTimeout(fn, wait);  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 处理函数</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Math</span>.random()); </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 滚动事件</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// window.addEventListener('scroll', debounce(handle, 1000));</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).onclick = debounce(handle, <span class="number">3000</span>)</span></pre></td></tr></table></figure>
+
+<h1 id="节流的理解"><a href="#节流的理解" class="headerlink" title="节流的理解"></a>节流的理解</h1><p>当持续触发事件时，保证一定时间段内只调用一次事件处理函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 用时间戳来实现</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> throttle = <span class="function"><span class="keyword">function</span>(<span class="params">func, delay</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> lastTime = <span class="number">0</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">var</span> context = <span class="keyword">this</span>;   <span class="comment">//this指向window</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">var</span> args = <span class="built_in">arguments</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">var</span> now = <span class="built_in">Date</span>.now();</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">if</span> (now - lastTime &gt;= delay) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            func.apply(context, args);</span></pre></td></tr><tr><td class="code"><pre><span class="line">            lastTime = now</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Math</span>.random());</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// window.addEventListener('scroll', throttle(handle, 1000));</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).onclick = throttle(handle, <span class="number">3000</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 用定时器来实现</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">Math</span>.random());</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn,delay</span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> valid = <span class="literal">true</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">if</span>(!valid)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">//休息时间 暂不接客</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">return</span> <span class="literal">false</span> </span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="comment">// 工作时间，执行函数并且在间隔期内把状态位设为无效</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        valid = <span class="literal">false</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        fn()</span></pre></td></tr><tr><td class="code"><pre><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            </span></pre></td></tr><tr><td class="code"><pre><span class="line">            valid = <span class="literal">true</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;, delay)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// window.addEventListener('scroll', throttle(handle, 1000));</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).onclick = throttle(handle, <span class="number">3000</span>)</span></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/js高级进阶/" class="article-tag-list-link color2">js高级进阶</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/26/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-js设计模式/单例模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -886,87 +976,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/12/16/webpack/splitChunks%E7%9A%84%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-webpack/webpack-codeSpliting" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/12/webpack/webpack-codeSpliting/">webpack之code-spliting</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/12/webpack/webpack-codeSpliting/" class="archive-article-date">
-  	<time datetime="2019-12-12T04:00:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>好比说项目中引入了lodash<br>lodash 和 我们的逻辑代码就可以做一个分割</p>
-</li>
-<li><p>优点<br>每次加载的文件的大小基本没变  只不过分两次加载<br>但是由于浏览器有缓存的原因 比如第三方的lodash分开加载的话<br>由于浏览器缓存的原因没有做改变的话是不会重新加载的这样一来就增加了开发效率</p>
-</li>
-<li><p>在webpack中的配置截图如下<br><img src="/assets/img/webpack-code-spliting.png" alt="code spliting"></p>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/webpack/" class="article-tag-list-link color3">webpack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/12/webpack/webpack-codeSpliting/">展开全文 >></a>
         </p>
       
 
