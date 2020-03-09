@@ -6,16 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://edison4499.github.io">
-  <title>js防抖和节流 | edison4499blog</title>
+  <title>js的运行机制 | edison4499blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="防抖的理解当持续触发事件时，一定时间段内没有再触发事件，事件处理函数才会执行一次，如果设定的时间到来之前，又一次触发了事件，就重新开始延时 function debounce(fn, wait) &amp;#123;    var timeout &#x3D; null;      &#x2F;&#x2F;定义一个定时器    return function() &amp;#123;        if(timeout !&#x3D;&#x3D; null)">
+  <meta name="description" content="js运行机制JS 在执行的过程中会产生执行环境，这些执行环境会被顺序的加入到执行栈中。如果遇到异步的代码，会被挂起并加入到 Task（有多种 task） 队列中。一旦执行栈为空，Event Loop 就会从 Task 队列中拿出需要执行的代码并放入执行栈中执行，所以本质上来说 JS 中的异步还是同步行为。不同的任务源会被分配到不同的 Task 队列中，任务源可以分为 微任务（microtask）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js防抖和节流">
-<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;2020&#x2F;02&#x2F;26&#x2F;js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6&#x2F;%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81&#x2F;index.html">
+<meta property="og:title" content="js的运行机制">
+<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;2020&#x2F;03&#x2F;03&#x2F;js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6&#x2F;js%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6&#x2F;index.html">
 <meta property="og:site_name" content="edison4499blog">
-<meta property="og:description" content="防抖的理解当持续触发事件时，一定时间段内没有再触发事件，事件处理函数才会执行一次，如果设定的时间到来之前，又一次触发了事件，就重新开始延时 function debounce(fn, wait) &amp;#123;    var timeout &#x3D; null;      &#x2F;&#x2F;定义一个定时器    return function() &amp;#123;        if(timeout !&#x3D;&#x3D; null)">
+<meta property="og:description" content="js运行机制JS 在执行的过程中会产生执行环境，这些执行环境会被顺序的加入到执行栈中。如果遇到异步的代码，会被挂起并加入到 Task（有多种 task） 队列中。一旦执行栈为空，Event Loop 就会从 Task 队列中拿出需要执行的代码并放入执行栈中执行，所以本质上来说 JS 中的异步还是同步行为。不同的任务源会被分配到不同的 Task 队列中，任务源可以分为 微任务（microtask）">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-02T07:32:45.302Z">
+<meta property="og:updated_time" content="2020-03-09T07:52:06.967Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="edison4499blog" type="application/atom+xml">
@@ -136,43 +136,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-js高级进阶/防抖和节流" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-js高级进阶/js的运行机制" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      js防抖和节流
+      js的运行机制
     </h1>
   
 
         
-        <a href="/2020/02/26/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" class="archive-article-date">
-  	<time datetime="2020-02-26T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-26</time>
+        <a href="/2020/03/03/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2020-03-03T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="防抖的理解"><a href="#防抖的理解" class="headerlink" title="防抖的理解"></a>防抖的理解</h1><p>当持续触发事件时，<strong>一定时间段内没有再触发事件</strong>，事件处理函数才会执行一次，如果设定的时间到来之前，又一次触发了事件，就重新开始延时</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn, wait</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> timeout = <span class="literal">null</span>;      <span class="comment">//定义一个定时器</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">if</span>(timeout !== <span class="literal">null</span>) </span></pre></td></tr><tr><td class="code"><pre><span class="line">                clearTimeout(timeout);  <span class="comment">//清除这个定时器</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        timeout = setTimeout(fn, wait);  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 处理函数</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Math</span>.random()); </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 滚动事件</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// window.addEventListener('scroll', debounce(handle, 1000));</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).onclick = debounce(handle, <span class="number">3000</span>)</span></pre></td></tr></table></figure>
-
-<h1 id="节流的理解"><a href="#节流的理解" class="headerlink" title="节流的理解"></a>节流的理解</h1><p>当持续触发事件时，保证一定时间段内只调用一次事件处理函数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 用时间戳来实现</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> throttle = <span class="function"><span class="keyword">function</span>(<span class="params">func, delay</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> lastTime = <span class="number">0</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">var</span> context = <span class="keyword">this</span>;   <span class="comment">//this指向window</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">var</span> args = <span class="built_in">arguments</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">var</span> now = <span class="built_in">Date</span>.now();</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">if</span> (now - lastTime &gt;= delay) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            func.apply(context, args);</span></pre></td></tr><tr><td class="code"><pre><span class="line">            lastTime = now</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Math</span>.random());</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// window.addEventListener('scroll', throttle(handle, 1000));</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).onclick = throttle(handle, <span class="number">3000</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 用定时器来实现</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">Math</span>.random());</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn,delay</span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> valid = <span class="literal">true</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">if</span>(!valid)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">//休息时间 暂不接客</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">return</span> <span class="literal">false</span> </span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="comment">// 工作时间，执行函数并且在间隔期内把状态位设为无效</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        valid = <span class="literal">false</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        fn()</span></pre></td></tr><tr><td class="code"><pre><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            </span></pre></td></tr><tr><td class="code"><pre><span class="line">            valid = <span class="literal">true</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;, delay)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// window.addEventListener('scroll', throttle(handle, 1000));</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).onclick = throttle(handle, <span class="number">3000</span>)</span></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
+        <h1 id="js运行机制"><a href="#js运行机制" class="headerlink" title="js运行机制"></a>js运行机制</h1><p>JS 在执行的过程中会产生执行环境，这些执行环境会被顺序的加入到执行栈中。如果遇到异步的代码，会被挂起并<br>加入到 Task（有多种 task） 队列中。一旦执行栈为空，Event Loop 就会从 Task 队列中拿出需要执行的代码并放<br>入执行栈中执行，所以本质上来说 JS 中的异步还是同步行为。<br>不同的任务源会被分配到不同的 Task 队列中，任务源可以分为 微任务（microtask） 和 宏任务（macrotask）。<br>在 ES6 规范中，microtask 称为 jobs ，macrotask 称为 task //<br>以上代码虽然 setTimeout 写在 Promise 之前，但是因为 Promise 属于微任务而 setTimeout 属于宏任<br>务，所以会有以上的打印。<br>微任务包括 process.nextTick ， promise ， Object.observe ， MutationObserver<br>宏任务包括 script ， setTimeout ， setInterval ， setImmediate ， I/O ， UI rendering</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>) &#125;, <span class="number">0</span>) </span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123; <span class="built_in">console</span>.log(<span class="string">'Promise'</span>) resolve() &#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    .then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'promise1'</span>) &#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    .then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'promise2'</span>) &#125;) </span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>) <span class="comment">// script start =&gt; Promise =&gt; script end =&gt; promise1 =&gt; promise2 =&gt; setTimeout</span></span></pre></td></tr></table></figure>
+<p>很多人有个误区，认为微任务快于宏任务，其实是错误的。因为宏任务中包括了 script ，浏览器会先执行一个<br>宏任务，接下来有异步代码的话就先执行微任务。<br>所以正确的一次 Event loop 顺序是这样的</p>
+<ol>
+<li>执行同步代码，这属于宏任务</li>
+<li>执行栈为空，查询是否有微任务需要执行</li>
+<li>执行所有微任务</li>
+<li>必要的话渲染 UI</li>
+<li>然后开始下一轮 Event loop，执行宏任务中的异步代码<br>通过上述的 Event loop 顺序可知，如果宏任务中的异步代码有大量的计算并且需要操作 DOM 的话，为了更快的<br>界面响应，我们可以把操作 DOM 放入微任务中。</li>
+</ol>
 
       
 
@@ -268,7 +261,7 @@
     <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://edison4499.github.io/2020/02/26/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://edison4499.github.io/2020/03/03/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -282,18 +275,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/03/03/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/03/09/react/useState/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          js的运行机制
+          react的useState
         
       </div>
     </a>
   
   
-    <a href="/2020/02/06/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">单例模式</div>
+    <a href="/2020/02/26/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">js防抖和节流</div>
       <i class="icon-circle-right"></i>
     </a>
   
