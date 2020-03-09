@@ -6,13 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://edison4499.github.io">
-  <title>Category: es6 | edison4499blog</title>
+  <title>react的useState | edison4499blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="edison4499blog">
-<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;categories&#x2F;es6&#x2F;index.html">
+  <meta name="description" content="读取状态当 hook useState(initialState)被调用时，它返回一个数组，该数组的第一项是状态值  import React, &amp;#123; useState &amp;#125; from &amp;apos;react&amp;apos;;function Bulbs() &amp;#123;  const stateArray &#x3D; useState(false);  return &amp;lt;div&amp;gt;    &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react的useState">
+<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;2020&#x2F;03&#x2F;09&#x2F;react&#x2F;useState&#x2F;index.html">
 <meta property="og:site_name" content="edison4499blog">
+<meta property="og:description" content="读取状态当 hook useState(initialState)被调用时，它返回一个数组，该数组的第一项是状态值  import React, &amp;#123; useState &amp;#125; from &amp;apos;react&amp;apos;;function Bulbs() &amp;#123;  const stateArray &#x3D; useState(false);  return &amp;lt;div&amp;gt;    &amp;#123;">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-09T07:46:38.194Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="edison4499blog" type="application/atom+xml">
@@ -133,298 +136,220 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-react/useState" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      react的useState
+    </h1>
+  
+
+        
+        <a href="/2020/03/09/react/useState/" class="archive-article-date">
+  	<time datetime="2020-03-09T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>读取状态<br>当 hook useState(initialState)被调用时，它返回一个数组，该数组的第一项是状态值</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bulbs</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">const</span> stateArray = useState(<span class="literal">false</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="xml">    &#123;stateArray[0] ? '关闭' : '开启'&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<ol start="2">
+<li>数组解构读取状态<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 咱们可以使用数组解构来将状态值提取到变量on上：</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bulbs</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">const</span> [on] = useState(<span class="literal">false</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="xml">    &#123;on ? '关闭' : '开启'&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure></li>
+<li>更新状态</li>
+</ol>
+<ul>
+<li>咱们已经知道，useState(initialState)返回一个数组，其中第一项是状态值，第二项是一个更新状态的函数。<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bulbs</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">const</span> [on, setOn] = useState(<span class="literal">false</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">const</span> lightOn = <span class="function"><span class="params">()</span> =&gt;</span> setOn(<span class="literal">true</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">const</span> lightOff = <span class="function"><span class="params">()</span> =&gt;</span> setOn(<span class="literal">false</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">return</span> (</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &lt;&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      &lt;div&gt;&#123;on ? <span class="string">'关闭'</span> : <span class="string">'开启'</span>&#125;&lt;<span class="regexp">/div&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">      &lt;button onClick=&#123;lightOn&#125;&gt;开灯&lt;/</span>button&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      &lt;button onClick=&#123;lightOff&#125;&gt;关灯&lt;<span class="regexp">/button&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">    &lt;/</span>&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  );</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure></li>
+</ul>
+<ol start="4">
+<li>使用函数更新状态<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bulbs</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">const</span> [on, setOn] = useState(<span class="literal">false</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">const</span> lightSwitch = <span class="function"><span class="params">()</span> =&gt;</span> setOn(<span class="function"><span class="params">on</span> =&gt;</span> !on);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">return</span> (</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &lt;&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      &lt;div&gt;&#123;on ? <span class="string">'开启'</span> : <span class="string">'关闭'</span>&#125;&lt;<span class="regexp">/div&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">      &lt;button onClick=&#123;lightSwitch&#125;&gt;开灯/</span>关灯&lt;<span class="regexp">/button&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">    &lt;/</span>&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  );</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure></li>
+<li>总结</li>
+</ol>
+<ul>
+<li>调用useState() Hook 来启用函数组件中的状态。</li>
+<li>useState(initialValue)的第一个参数initialValue是状态的初始值。</li>
+<li>[state, setState] = useState(initialValue)返回一个包含2个元素的数组:状态值和状态更新函数。</li>
+<li>使用新值调用状态更新器函数setState(newState)更新状态。或者，可以使用一个回调setState(prev =&gt; next)来调用状态更新器，该调将返回基于先前状态的新状态。</li>
+<li>调用状态更新器后，React 确保重新渲染组件，以使新状态变为当前状态。</li>
+</ul>
+<ol start="6">
+<li>多种状态</li>
+</ol>
+<ul>
+<li>通过多次调用useState()，一个函数组件可以拥有多个状态。<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> [on, setOn] = useState(<span class="literal">false</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> [count, setCount] = useState(<span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> lightSwitch = <span class="function"><span class="params">()</span> =&gt;</span> setOn(<span class="function"><span class="params">on</span> =&gt;</span> !on);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> addBulbs = <span class="function"><span class="params">()</span> =&gt;</span> setCount(<span class="function"><span class="params">count</span> =&gt;</span> count + <span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> bulb = <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;on ? '开启' : '关闭'&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> bulbs = <span class="built_in">Array</span>(count).fill(bulb);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> (</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &lt;div&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &lt;div className=<span class="string">"bulbs"</span>&gt;&#123;bulbs&#125;&lt;<span class="regexp">/div&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">            &lt;button onClick=&#123;lightSwitch&#125;&gt;开/</span>关&lt;<span class="regexp">/button&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">            &lt;button onClick=&#123;addBulbs&#125;&gt;添加灯泡&lt;/</span>button&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &lt;<span class="regexp">/div&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">    );</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">&#125;</span></span></pre></td></tr></table></figure></li>
+</ul>
+<ol start="7">
+<li>状态的延迟化<br>每当 React 重新渲染组件时，都会执行useState(initialState)。 如果初始状态是原始值（数字，布尔值等），则不会有性能问题。<br>当初始状态需要昂贵的性能方面的操作时，可以通过为useState(computeInitialState)提供一个函数来使用状态的延迟初始化，如下所示：<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> [on, setOn] = useState(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">return</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> (</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &lt;div&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                on &amp;&amp; on.map(<span class="function">(<span class="params">i, index</span>) =&gt;</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;i&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line">                &#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &lt;<span class="regexp">/div&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">    );</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">export default App</span></span></pre></td></tr></table></figure>
+<h1 id="useState中的坑"><a href="#useState中的坑" class="headerlink" title="useState中的坑"></a>useState中的坑</h1></li>
+</ol>
+<ul>
+<li><p>useState() 的无效调用</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在条件中调用useState()是不正确的：</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Switch</span>(<span class="params">&#123; isSwitchEnabled &#125;</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">if</span> (isSwitchEnabled) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// Bad</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> [on, setOn] = useState(<span class="literal">false</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure></li>
+<li><p>在嵌套函数中调用useState()也是不对的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Switch</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">let</span> on = <span class="literal">false</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">let</span> setOn = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">enableSwitch</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// Bad</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    [on, setOn] = useState(<span class="literal">false</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">return</span> (</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &lt;button onClick=&#123;enableSwitch&#125;&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      Enable light <span class="keyword">switch</span> state</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &lt;<span class="regexp">/button&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">  );</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">&#125;</span></span></pre></td></tr></table></figure>
+</li>
+<li><p>过时状态<br>闭包（例如事件处理程序，回调）可能会从函数组件作用域中捕获状态变量。 由于状态变量在渲染之间变化，因此闭包应捕获具有最新状态值的变量。否则，如果闭包捕获了过时的状态值，则可能会遇到过时的状态问题。来看看一个过时的状态是如何表现出来的。组件<DelayedCount>延迟3秒计数按钮点击的次数。</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DelayedCount</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">const</span> handleClickAsync = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">delay</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      setCount(count + <span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;, <span class="number">3000</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">return</span> (</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &lt;div&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      &#123;count&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      &lt;button onClick=&#123;handleClickAsync&#125;&gt;Increase <span class="keyword">async</span>&lt;<span class="regexp">/button&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  );</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<ul>
+<li>delay() 是一个过时的闭包，它从初始渲染（使用0初始化时）中捕获了过时的count变量。<br>为了解决这个问题，使用函数方法来更新count状态：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DelayedCount</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> handleClickAsync = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">delay</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            setCount(<span class="function"><span class="params">count</span> =&gt;</span> count + <span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;, <span class="number">3000</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> (</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &lt;div&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#123;count&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &lt;button onClick=&#123;handleClickAsync&#125;&gt;Increase <span class="keyword">async</span>&lt;<span class="regexp">/button&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    );</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> DelayedCount</span></pre></td></tr></table></figure>
+<ul>
+<li>React 确保将最新状态值作为参数提供给更新状态函数，过时闭包的问题解决了。</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" target="_blank" rel="noopener" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我喝瓶水<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/apay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/07/es6/es6%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" class="archive-article-date">
-  	<time datetime="2020-01-07T02:14:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/07/es6/es6%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">es6箭头函数的使用场景</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/React/" class="article-tag-list-link color1">React</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" target="_blank" rel="noopener" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/16/es6/es6-map%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84Iterator%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
-  	<time datetime="2019-12-16T04:18:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/16/es6/es6-map%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84Iterator%E6%8E%A5%E5%8F%A3/">es6-Map数据结构Iterator接口</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://edison4499.github.io/2020/03/09/react/useState/" alt="微信分享二维码">
+    </div>
+</div>
 
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/16/es6/es6%E5%87%BD%E6%95%B0%E6%89%A9%E5%B1%95%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" class="archive-article-date">
-  	<time datetime="2019-12-16T04:18:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-16</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/09/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">js高级进阶/js的运行机制</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/16/es6/es6%E5%87%BD%E6%95%B0%E6%89%A9%E5%B1%95%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/">es6-函数扩展和箭头函数</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/10/es6/es6-reflect/" class="archive-article-date">
-  	<time datetime="2019-12-10T09:25:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-10</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/10/es6/es6-reflect/">es6-reflect</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/09/es6/es6%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95Symbol-Set%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2019-12-09T02:22:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/09/es6/es6%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95Symbol-Set%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">es6-对象的扩展Symbol Set数据结构</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/07/es6/es6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" class="archive-article-date">
-  	<time datetime="2019-12-07T05:05:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/07/es6/es6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/">es6-字符串数组的扩展方法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/06/es6/es6%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" class="archive-article-date">
-  	<time datetime="2019-12-06T03:10:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/06/es6/es6%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/">es6-块级作用域 解构赋值</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -447,10 +372,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
