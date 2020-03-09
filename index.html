@@ -135,6 +135,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-react/useEffect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/09/react/useEffect/">react的useEffect</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/09/react/useEffect/" class="archive-article-date">
+  	<time datetime="2020-03-09T08:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="useEffect-可以在function定义的组件中模拟生命周期"><a href="#useEffect-可以在function定义的组件中模拟生命周期" class="headerlink" title="useEffect 可以在function定义的组件中模拟生命周期"></a>useEffect 可以在function定义的组件中模拟生命周期</h1><ol>
+<li>参数一：表示回调函数<br>参数二：表示什么数据改变之后会触发回调函数；</li>
+<li>若没有参数二，表示所有数据改变都会触发<br>参数二为空数组，表示只有在第一次组件初始化的时候会触发<br>若参数二中的数组有值，表示数组中的数据发生改变之后会触发<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React,&#123; useState,useEffect &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">CounterFun</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">const</span> [ count,setCount] = useState(<span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        useEffect(<span class="function"><span class="params">()</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="string">"每次都会执行"</span>)  &#125;)   &#125;；</span></pre></td></tr><tr><td class="code"><pre><span class="line">        useEffect(<span class="function"><span class="params">()</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="string">"只执行一次"</span>)；&#125;，[ ] );</span></pre></td></tr><tr><td class="code"><pre><span class="line">        useEffect(<span class="function"><span class="params">()</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="string">"count值发生了改变"</span>)；&#125;，[count])；<span class="comment">//count发生改变，立即触发该生命周期</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">return</span> (</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &lt;div&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                &lt;h5&gt;当前的技术值为：&#123;count&#125;&lt;<span class="regexp">/h5&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">                &lt;button onClick=&#123;()=&gt;setCount(count+1)&#125;&gt;按下&lt;/</span>button&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &lt;<span class="regexp">/div&gt;)</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">    &#125;</span></span></pre></td></tr></table></figure></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/React/" class="article-tag-list-link color1">React</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/09/react/useEffect/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-react/useState" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -923,126 +1000,9 @@
 
 
   
-    <article id="post-es6/es6-map数据结构Iterator接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/16/es6/es6-map%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84Iterator%E6%8E%A5%E5%8F%A3/">es6-Map数据结构Iterator接口</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/16/es6/es6-map%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84Iterator%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
-  	<time datetime="2019-12-16T04:18:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Map是什么"><a href="#Map是什么" class="headerlink" title="Map是什么"></a>Map是什么</h1><p>// map????<br>// es6 新提出的一种引用类型的数据结构 类似于对象<br>// 字符创-》值  值-》值 </p>
-<h2 id="声明Map数据结构"><a href="#声明Map数据结构" class="headerlink" title="声明Map数据结构"></a>声明Map数据结构</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>()</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> o = &#123;<span class="attr">p</span>:<span class="string">'hello'</span>&#125; <span class="comment">// 相当于键 key </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">map.set(o,<span class="string">'content'</span>) <span class="comment">// var a = &#123;&#125; a.name = '张三' a.name</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(map.get(o));</span></pre></td></tr></table></figure>
-<h2 id="证明是引用数据类型"><a href="#证明是引用数据类型" class="headerlink" title="证明是引用数据类型"></a>证明是引用数据类型</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// null </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span> </span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>()</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(map <span class="keyword">instanceof</span> <span class="built_in">Map</span>); <span class="comment">// true </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(map) === <span class="string">'[object Map]'</span>);</span></pre></td></tr></table></figure>
-<h2 id="接收数组作为参数"><a href="#接收数组作为参数" class="headerlink" title="接收数组作为参数"></a>接收数组作为参数</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>( [</span></pre></td></tr><tr><td class="code"><pre><span class="line">        [<span class="string">'name'</span>,<span class="string">'张三'</span>],</span></pre></td></tr><tr><td class="code"><pre><span class="line">        [<span class="string">'age'</span>,<span class="number">18</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">    ])</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(map.get(<span class="string">'name'</span>)); <span class="comment">// 张三</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(map.get(<span class="string">'age'</span>)); <span class="comment">// 18</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// map 是数组的方法  Map 是es6新提出的一种新的 引用类型的数据结构</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> m = <span class="keyword">new</span> <span class="built_in">Map</span>(</span></pre></td></tr><tr><td class="code"><pre><span class="line">        [</span></pre></td></tr><tr><td class="code"><pre><span class="line">            [<span class="number">123</span>,<span class="string">'abc'</span>],</span></pre></td></tr><tr><td class="code"><pre><span class="line">            [<span class="string">'a'</span>,&#123;<span class="attr">x</span>:<span class="number">1</span>,<span class="attr">y</span>:<span class="number">2</span>&#125;],</span></pre></td></tr><tr><td class="code"><pre><span class="line">            [<span class="number">3</span>&gt;<span class="number">1</span>,<span class="number">666</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">        ]</span></pre></td></tr><tr><td class="code"><pre><span class="line">    )</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(m.get(<span class="literal">true</span>)); <span class="comment">// 666</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 404 Not found 500 InterError 404和500 都是数值</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> errors = <span class="keyword">new</span> <span class="built_in">Map</span>([</span></pre></td></tr><tr><td class="code"><pre><span class="line">        [<span class="number">404</span>,<span class="string">'Not found'</span>],</span></pre></td></tr><tr><td class="code"><pre><span class="line">        [<span class="number">500</span>,<span class="string">'InterError'</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">    ])</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 注意 对象作为键名 传输的是地址</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// let m1 = new Map([</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//     [123,'abc'],</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//     [&#123;x:1&#125;,'cdf']</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// ])</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(m1.get(&#123;x:1&#125;)); // undefined</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> obj1 = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> m1 = <span class="keyword">new</span> <span class="built_in">Map</span>([</span></pre></td></tr><tr><td class="code"><pre><span class="line">        [<span class="number">123</span>,<span class="string">'abc'</span>],</span></pre></td></tr><tr><td class="code"><pre><span class="line">        [obj1,<span class="string">'cdf'</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">    ])</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(m1.get(obj1)); <span class="comment">// cdf</span></span></pre></td></tr></table></figure>
-<h2 id="Map接收数组作为参数的本质"><a href="#Map接收数组作为参数的本质" class="headerlink" title="Map接收数组作为参数的本质"></a>Map接收数组作为参数的本质</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 为什么 接收一个二元数组 key value的形式 就可以通过 map.get()获取到值呢</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [</span></pre></td></tr><tr><td class="code"><pre><span class="line">    [<span class="string">'name'</span>,<span class="string">'张三'</span>],</span></pre></td></tr><tr><td class="code"><pre><span class="line">    [<span class="string">'age'</span>,<span class="number">18</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">]</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>()</span></pre></td></tr><tr><td class="code"><pre><span class="line">array.forEach(</span></pre></td></tr><tr><td class="code"><pre><span class="line">    ([key,value])=&gt;map.set(key,value)</span></pre></td></tr><tr><td class="code"><pre><span class="line">)</span></pre></td></tr></table></figure>
-<h2 id="Map参数的扩展"><a href="#Map参数的扩展" class="headerlink" title="Map参数的扩展"></a>Map参数的扩展</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 具有迭代器 iterator 接口 每个成员都是双元素的数组的数据结构 都可以当做map构造函数的参数</span></span></pre></td></tr></table></figure>
-<h1 id="Iterator-和-for…of-循环"><a href="#Iterator-和-for…of-循环" class="headerlink" title="Iterator 和 for…of 循环"></a>Iterator 和 for…of 循环</h1><h2 id="为什么要有iterator？？"><a href="#为什么要有iterator？？" class="headerlink" title="为什么要有iterator？？"></a>为什么要有iterator？？</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Map Set 等数据结构 需要一个统一的接口去处理 iterator就是提供了这么一个机制</span></span></pre></td></tr></table></figure>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数据部署了iterator接口 就可以用for ... of 循环遍历</span></span></pre></td></tr></table></figure>
-<h2 id="for…of-循环的遍历过程的本质"><a href="#for…of-循环的遍历过程的本质" class="headerlink" title="for…of 循环的遍历过程的本质"></a>for…of 循环的遍历过程的本质</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// for...of 循环遍历的过程</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 1 创建一个指针对象 指向数据的初始位置 iterator就是一个指针对象</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 2 第一次调用指针对象的next() 可以将指针指向第一个成员</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// .....</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 直到结束</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// !!!! 每一次调用指针对象的时候每次调用next()方法 会返回 value 指的是值 done是布尔值 用来标识遍历是否完成</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">makeIterator</span>(<span class="params">array</span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">let</span> nextIndex = <span class="number">0</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">return</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            next:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                <span class="keyword">return</span> nextIndex &lt; array.length ? &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    value:array[nextIndex++],</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    done:<span class="literal">false</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">                &#125; :&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    value:<span class="literal">undefined</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    done:<span class="literal">true</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> res = makeIterator(arr)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(res.next());</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(res.next());</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(res.next());</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(res.next());</span></pre></td></tr></table></figure>
-<h2 id="Iterator接口部署在数据结构的Symbol-iterator属性"><a href="#Iterator接口部署在数据结构的Symbol-iterator属性" class="headerlink" title="Iterator接口部署在数据结构的Symbol.iterator属性"></a>Iterator接口部署在数据结构的Symbol.iterator属性</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 重中之重</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// let iter = arr1[Symbol.iterator]()</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(iter.next());</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(iter.next());</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(iter.next());</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(iter.next());</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(iter.next());</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(iter.next());</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(iter.next());</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(iter.next());</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// console.log(iter.next());</span></span></pre></td></tr></table></figure>
-<h2 id="原生具备Iterator接口的数据结构"><a href="#原生具备Iterator接口的数据结构" class="headerlink" title="原生具备Iterator接口的数据结构"></a>原生具备Iterator接口的数据结构</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">具有iterator接口 <span class="built_in">Array</span> <span class="built_in">Map</span> <span class="built_in">Set</span> <span class="built_in">String</span></span></pre></td></tr></table></figure>
-<h2 id="对象不具备Iterator接口-可以手动部署迭代器接口-让其可以用for…of-循环遍历"><a href="#对象不具备Iterator接口-可以手动部署迭代器接口-让其可以用for…of-循环遍历" class="headerlink" title="对象不具备Iterator接口 可以手动部署迭代器接口 让其可以用for…of 循环遍历"></a>对象不具备Iterator接口 可以手动部署迭代器接口 让其可以用for…of 循环遍历</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 想让对象也可以通过for...of 循环遍历</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">let</span> obj = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        data:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],</span></pre></td></tr><tr><td class="code"><pre><span class="line">        [<span class="built_in">Symbol</span>.iterator]()&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">let</span> index = <span class="number">0</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">let</span> that = <span class="keyword">this</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">return</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                next()&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    <span class="keyword">if</span>(index&lt;that.data.length)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                        <span class="keyword">return</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                            value:that.data[index++],</span></pre></td></tr><tr><td class="code"><pre><span class="line">                            done:<span class="literal">false</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">                        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                        <span class="keyword">return</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                            value:<span class="literal">undefined</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">                            done:<span class="literal">true</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">                        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">of</span> obj )&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(i);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/16/es6/es6-map%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84Iterator%E6%8E%A5%E5%8F%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
