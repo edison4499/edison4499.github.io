@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://edison4499.github.io">
-  <title>Archives | edison4499blog</title>
+  <title>js闭包的理解 | edison4499blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="edison4499blog">
-<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;archives&#x2F;page&#x2F;3&#x2F;index.html">
+  <meta name="description" content="何为属性？属性就是与对象相关的值，而数据属性和访问器属性，就是属性的属性，用于描述属性的行为特性。  数据属性数据属性（property）用于实现JavaScript引擎，是属性(property)的内部值，它包含一个数据值的位置。有如下4种行为特性。[[Configurable]]：能否被delete删除属性重新定义[[Enumerable]]：能否被for-in枚举[[Writable]]：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js闭包的理解">
+<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;2019&#x2F;11&#x2F;29&#x2F;js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6&#x2F;js%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B1%9E%E6%80%A7%E5%92%8C%E8%AE%BF%E9%97%AE%E5%99%A8%E5%B1%9E%E6%80%A7&#x2F;index.html">
 <meta property="og:site_name" content="edison4499blog">
+<meta property="og:description" content="何为属性？属性就是与对象相关的值，而数据属性和访问器属性，就是属性的属性，用于描述属性的行为特性。  数据属性数据属性（property）用于实现JavaScript引擎，是属性(property)的内部值，它包含一个数据值的位置。有如下4种行为特性。[[Configurable]]：能否被delete删除属性重新定义[[Enumerable]]：能否被for-in枚举[[Writable]]：">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;assets&#x2F;img&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;assets&#x2F;img&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;assets&#x2F;img&#x2F;3.png">
+<meta property="og:updated_time" content="2020-03-10T08:24:25.208Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;assets&#x2F;img&#x2F;1.png">
   
     <link rel="alternative" href="/atom.xml" title="edison4499blog" type="application/atom+xml">
   
@@ -133,37 +140,79 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-js高级进阶/js对象的数据属性和访问器属性" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2019-11-29T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-29</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3/">js闭包的理解</a>
+    <h1 class="article-title" itemprop="name">
+      js闭包的理解
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B1%9E%E6%80%A7%E5%92%8C%E8%AE%BF%E9%97%AE%E5%99%A8%E5%B1%9E%E6%80%A7/" class="archive-article-date">
+  	<time datetime="2019-11-29T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>何为属性？<br>属性就是与对象相关的值，而数据属性和访问器属性，就是属性的属性，用于描述属性的行为特性。</p>
+</li>
+<li><p>数据属性<br>数据属性（property）用于实现JavaScript引擎，是属性(property)的内部值，它包含一个数据值的位置。有如下4种行为特性。<br>[[Configurable]]：能否被delete删除属性重新定义<br>[[Enumerable]]：能否被for-in枚举<br>[[Writable]]：能否修改属性值<br>[[Value]]：数据的数据值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 一个名叫huahua的狗狗</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> dog = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">name: <span class="string">'Obama'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>此处有一个名为name的属性，其值是‘Obama’，即[[Value]]的值就是‘Obama’，任何修改name属性的操作，都能在[[value]]上显示出来。<br>通过Object.getOwnPropertyDescriptor()方法，我们可以查看属性name的默认数据属性。<br>Object.getOwnPropertyDescriptor(dog, ‘name’)<br><img src="/assets/img/1.png" alt="数据 属性"><br>那么，如何修改默认属性的值呢？<br>使用Object.defineProperty()可以修改默认属性。包含三个参数：属性所在对象，属性名称，描述符对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将狗狗的名字改成川普</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(dog, <span class="string">'name'</span>, &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    writable: <span class="literal">false</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">    value: <span class="string">'Trump'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;)</span></pre></td></tr></table></figure>
+<p><img src="/assets/img/2.png" alt="数据 属性"><br>由于修改了默认属性name的描述符对象writable的值为false，故无法修改属性值。其他描述符类似。</p>
+</li>
+<li><p>访问器属性<br>访问器属性主要由setter和getter函数组成，包含如下4个特性：<br>[[Configurable]]：能否被delete删除属性重新定义。默认值：true<br>[[Enumerable]]：能否被for-in枚举。默认值：true<br>[[Get]]：读取属性值。默认值：undefined<br>[[Set]]：写入属性值。默认值：undefined</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> dog = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    _age: <span class="number">2</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">    weight: <span class="number">10</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(dog, <span class="string">'age'</span>, &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">get</span>: function () &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._age</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;,</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">set</span>: function (newVal) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">this</span>._age = newVal</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">this</span>.weight += <span class="number">1</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;)</span></pre></td></tr></table></figure>
+<p><img src="/assets/img/3.png" alt="数据 属性"><br>_age属性前面的下划线是一种常用的记号，是一种只能通过对象方法访问的属性。</p>
+<h1 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h1></li>
+<li><p>Object.defineProperty()方法可以为全局对象定义属性，该全局对象的所有实例，都可使用该属性</p>
+</li>
+<li><p>set方法可以监听对象属性值得变化，如此，双向数据绑定就能够使用js实现了。</p>
+</li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" target="_blank" rel="noopener" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我喝瓶水<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/apay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -176,58 +225,107 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" target="_blank" rel="noopener" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://edison4499.github.io/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B1%9E%E6%80%A7%E5%92%8C%E8%AE%BF%E9%97%AE%E5%99%A8%E5%B1%9E%E6%80%A7/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B1%9E%E6%80%A7%E5%92%8C%E8%AE%BF%E9%97%AE%E5%99%A8%E5%B1%9E%E6%80%A7/" class="archive-article-date">
-  	<time datetime="2019-11-29T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-29</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          js闭包的理解
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B1%9E%E6%80%A7%E5%92%8C%E8%AE%BF%E9%97%AE%E5%99%A8%E5%B1%9E%E6%80%A7/">js闭包的理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/js高级进阶/" class="article-tag-list-link color2">js高级进阶</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -251,8 +349,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
