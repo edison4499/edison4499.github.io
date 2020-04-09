@@ -135,6 +135,216 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-react/虚拟dom渲染机制分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/08/react/%E8%99%9A%E6%8B%9Fdom%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/">react虚拟dom渲染机制</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/08/react/%E8%99%9A%E6%8B%9Fdom%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/" class="archive-article-date">
+  	<time datetime="2020-04-08T02:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JSX的背后"><a href="#JSX的背后" class="headerlink" title="JSX的背后"></a>JSX的背后</h1><p>这个过程一般在前端会称为“转译”，但其实“汇编”将是一个更精确的术语。<br>React开发人员敦促你在编写组件时使用一种称为JSX的语法，混合了HTML和JavaScript。但浏览器对JSX及其语法毫无头绪，浏览器只能理解纯碎的JavaScript，所以JSX必须转换成JavaScript。这里是一个div的JSX代码，它有一个class name和一些内容：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;div className=<span class="string">'cn'</span>&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  Content!</span></pre></td></tr><tr><td class="code"><pre><span class="line">&lt;<span class="regexp">/div&gt;</span></span></pre></td></tr></table></figure>
+<p>以上的代码，被转换成“正经”的JavaScript代码，其实是一个带有一些参数的函数调用：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">React.createElement(</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="string">'div'</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#123; <span class="attr">className</span>: <span class="string">'cn'</span> &#125;,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="string">'Content!'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">);</span></pre></td></tr></table></figure>
+<p>让我们仔细看看这些参数。</p>
+<ol>
+<li>第一个是元素的type。对于HTML标签，它将是一个带有标签名称的字符串。</li>
+<li>第二个参数是一个包含所有元素属性（attributes）的对象。如果没有，它也可以是空的对象。</li>
+<li>剩下的参数都可以认为是元素的子元素（children）。元素中的文本也算作一个child，是个字符串’Content！’ 作为函数调用的第三个参数放置。<br>你应该可以想象，当我们有更多的children时会发生什么：<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;div className=<span class="string">'cn'</span>&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  Content <span class="number">1</span>!</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &lt;br /&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  Content <span class="number">2</span>!</span></pre></td></tr><tr><td class="code"><pre><span class="line">&lt;<span class="regexp">/div&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">React.createElement(</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">  'div',</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">  &#123; className: 'cn' &#125;,</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">  'Content 1!',              /</span><span class="regexp">/ 1st child</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">  React.createElement('br'), /</span><span class="regexp">/ 2nd child</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">  'Content 2!'               /</span><span class="regexp">/ 3rd child</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">)</span></span></pre></td></tr></table></figure>
+我们的函数现在有五个参数：</li>
+</ol>
+<ul>
+<li>一个元素的类型</li>
+<li>一个属性对象</li>
+<li>三个子元素。<br>因为其中一个child是一个React已知的HTML标签（<br/>），所以它也会被描述为一个函数调用（React.createElement(‘br’)）。</li>
+</ul>
+<p>到目前为止，我们已经涵盖了两种类型的children：</p>
+<ol>
+<li>简单的String</li>
+<li>另一种会调用React.createElement。</li>
+<li>然而，还有其他值可以作为参数：</li>
+</ol>
+<ul>
+<li>基本类型 false, null, undefined, true</li>
+<li>数组</li>
+<li>React Components<br>可以使用数组是因为可以将children分组并作为一个参数传递：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">React.createElement(</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="string">'div'</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#123; <span class="attr">className</span>: <span class="string">'cn'</span> &#125;,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  [<span class="string">'Content 1!'</span>, React.createElement(<span class="string">'br'</span>), <span class="string">'Content 2!'</span>]</span></pre></td></tr><tr><td class="code"><pre><span class="line">)</span></pre></td></tr></table></figure>
+<p><strong>当然了，React的厉害之处，不仅仅因为我们可以把HTML标签直接放在JSX中使用，而是我们可以自定义自己的组件</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Table</span>(<span class="params">&#123; rows &#125;</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> (</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &lt;table&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#123;rows.map(<span class="function"><span class="params">row</span> =&gt;</span> (</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &lt;tr key=&#123;row.id&#125;&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                &lt;td&gt;&#123;row.title&#125;&lt;<span class="regexp">/td&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">            &lt;/</span>tr&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        ))&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &lt;<span class="regexp">/table&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">    );</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">var rows = [&#123;id:1,title:'第一个标题'&#125;]</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">ReactDOM.render(</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">    React.createElement(Table, &#123; rows: rows &#125;),</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">    document.getElementById('root')</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="regexp">);</span></span></pre></td></tr></table></figure>
+<p>组件可以让我们把模板分解为多个可重用的块。在上面的“函数式”（functional）组件的例子里，我们接收一个包含表格行数据的对象数组，最后返回一个调用React.createElement方法的<table>元素，rows则作为children传进table。</p>
+<p>无论什么时候，我们这样去声明一个组件时：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Table</span> <span class="attr">rows</span>=<span class="string">&#123;rows&#125;</span> /&gt;</span></span></pre></td></tr></table></figure>
+<p>从浏览器的角度来看，我们是这么写的：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">React.createElement(Table, &#123; <span class="attr">rows</span>: rows &#125;);</span></pre></td></tr></table></figure>
+<p><strong>此时可以打开babel转义工具来强调一下组件必须大写的原因</strong><br><img src="/assets/img/react1.png" alt="解释"><br><img src="/assets/img/react2.png" alt="解释"><br>注意，这次我们的第一个参数不是String描述的HTML标签，而是一个引用，指向我们编写组件时编写的函数。组件的attributes现在是接收的props参数了。</p>
+<p>把组件（components）组合成页面（a page）<br>所以，我们已经将所有JSX组件转换为纯JavaScript，这些带参数的函数调用，是怎么转化成组成这个页面的实体DOM的呢？</p>
+<p>为此，我们有一个ReactDOM库及其它的render方法：</p>
+<p>function Table({ rows }) { /* … */ } // defining a component<br>// rendering a component<br>ReactDOM.render(<br>  React.createElement(Table, { rows: rows }), // “creating” a component<br>  document.getElementById(‘#root’) // inserting it on a page<br>);<br>当ReactDOM.render被调用时，React.createElement最终也会被调用，返回以下对象：</p>
+<p>// There are more fields, but these are most important to us<br>{<br>  type: Table,<br>  props: {<br>    rows: rows<br>  },<br>  // …<br>}<br>这些对象，在React的角度上，构成了虚拟DOM。<br>他们将在所有进一步的渲染中相互比较，并最终转化为 真正的DOM（virtual VS real, 虚拟DOM VS 真实DOM）。</p>
+<p>下面是另一个例子：这次div有一个class属性和几个children：</p>
+<p>React.createElement(<br>  ‘div’,<br>  { className: ‘cn’ },<br>  ‘Content 1!’,<br>  ‘Content 2!’,<br>);<br>变成：</p>
+<p>{<br>  type: ‘div’,<br>  props: {<br>    className: ‘cn’,<br>    children: [<br>      ‘Content 1!’,<br>      ‘Content 2!’<br>    ]<br>  }<br>}<br>需要注意的是，那些除了type和attribute以外的属性，原本是单独传进来的，转换之后，会作为在props.children以一个数组的形式打包存在。也就是说，无论children是作为数组还是参数列表传递都没关系 —— 在生成的虚拟DOM对象的时候，它们最后都会被打包在一起的。</p>
+<p>进一步说，我们可以直接在组件中把children作为一项属性传进去，结果还是一样的：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> ci = <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">'cn'</span> <span class="attr">children</span>=<span class="string">&#123;[</span>&lt;<span class="attr">div</span>&gt;</span>Content 1!<span class="tag">&lt;/<span class="name">div</span>&gt;</span>, <span class="tag">&lt;<span class="name">p</span>&gt;</span>Content 2!<span class="tag">&lt;/<span class="name">p</span>&gt;</span>]&#125; /&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="xml">ReactDOM.render(ci,document.getElementById('root'))</span></span></pre></td></tr></table></figure>
+<p>在构建虚拟DOM对象完成之后，ReactDOM.render将会按下面的原则，尝试将其转换为浏览器可以识别和展示的DOM节点：</p>
+<ul>
+<li>如果type包含一个带有String类型的标签名称（tag name）—— 创建一个标签，附带上props下所有attributes。</li>
+<li>如果type是一个函数（function）或者类（class），调用它，并对结果递归地重复这个过程。</li>
+<li>如果props下有children属性 —— 在父节点下，针对每个child重复以上过程。</li>
+</ul>
+<p>最后，得到以下HTML（对于我们的表格示例）：</p>
+<table>
+  <tr>
+    <td>Title</td>
+  </tr>
+  ...
+</table>
+重新构建DOM（Rebuilding the DOM）
+在实际应用场景，render通常在根节点调用一次，后续的更新会有state来控制和触发调用。
+
+<p>请注意，标题中的“重新”！当我们想更新一个页面而不是全部替换时 React将启动其diff算法，来确定节点树的哪些部分必须更新，哪些可以保持不变。</p>
+<p>那么，它是怎样工作的呢？其实只有少数几个简单的场景，理解它们将对我们的优化帮助很大。请记住，现在我们在看的，是在React Virtual DOM里面用来代表节点的对象。</p>
+<ol>
+<li>场景1：type是一个字符串，type在通话中保持不变，props也没有改变。<br>// before update<br>{ type: ‘div’, props: { className: ‘cn’ } }</li>
+</ol>
+<p>// after update<br>{ type: ‘div’, props: { className: ‘cn’ } }<br>这是最简单的情况：DOM保持不变。</p>
+<ol start="2">
+<li>场景2：type仍然是相同的字符串，props是不同的。<br>// before update:<br>{ type: ‘div’, props: { className: ‘cn’ } }</li>
+</ol>
+<p>// after update:<br>{ type: ‘div’, props: { className: ‘cnn’ } }<br>type仍然代表HTML元素，React知道如何通过标准DOM API调用来更改元素的属性，而无需从DOM树中删除一个节点。</p>
+<ol start="3">
+<li>场景3：type已更改为不同的String或从String组件。<br>// before update:<br>{ type: ‘div’, props: { className: ‘cn’ } }</li>
+</ol>
+<p>// after update:<br>{ type: ‘span’, props: { className: ‘cn’ } }<br>React看到的type是不同的，它甚至不会尝试更新我们的节点：old元素将和它的所有子节点一起被删除（unmounted卸载）。因此，将元素替换为完全不同于DOM树的东西代价会非常昂贵。幸运的是，这在现实世界中很少发生。</p>
+<p>划重点，记住React使用===（triple equals）来比较type的值，所以这两个值需要是相同类或相同函数的相同实例。</p>
+<p>下一个场景更加有趣，通常我们会这么使用React。</p>
+<ol start="4">
+<li>场景4：type是一个component。<br>// before update:<br>{ type: Table, props: { rows: rows } }</li>
+</ol>
+<p>// after update:<br>{ type: Table, props: { rows: rows } }<br>你可能会说，“咦，但没有任何变化啊！”，但是你错了。</p>
+<p>如果type是对函数或类的引用（即常规的React组件），并且我们启动了tree diff的过程，则React会持续地去检查组件的内部逻辑，以确保render返回的值不会改变（类似对副作用的预防措施）。对树中的每个组件进行遍历和扫描 —— 是的，在复杂的渲染场景下，成本可能会非常昂贵！</p>
+<p>值得注意的是，一个component的render（只有类组件在声明时有这个函数）跟ReactDom.render不是同一个函数。</p>
+<p>关注子组件（children）的情况<br>除了上述四种常见场景之外，当一个元素有多个子元素时，我们还需要考虑React的行为。现在假设我们有这么一个元素：</p>
+<p>// …<br>props: {<br>  children: [<br>      { type: ‘div’ },<br>      { type: ‘span’ },<br>      { type: ‘br’ }<br>  ]<br>},<br>// …<br>我们想要交换一下这些children的顺序：</p>
+<p>// …<br>props: {<br>  children: [<br>    { type: ‘span’ },<br>    { type: ‘div’ },<br>    { type: ‘br’ }<br>  ]<br>},<br>// …<br>之后会发生什么呢？</p>
+<p>当diffing的时候，如果React在检查props.children下的数组时，按顺序去对比数组内元素的话：index 0将与index 0进行比较，index 1和index 1，等等。对于每一次对比，React会使用之前提过的diff规则。在我们的例子里，它认为div成为一个span，那么就会运用到情景3。这样不是很有效率的：想象一下，我们已经从1000行中删除了第一行。React将不得不“更新”剩余的999个子项，因为按index去对比的话，内容从第一条开始就不相同了。</p>
+<p>幸运的是，React有一个内置的方法（built-in）来解决这个问题。如果一个元素有一个key属性，那么元素将按key而不是index来比较。只要key是唯一的，React就会移动元素，而不是将它们从DOM树中移除然后再将它们放回（这个过程在React里叫mounting和unmounting）。</p>
+<p>// …<br>props: {<br>  children: [ // Now React will look on key, not index<br>    { type: ‘div’, key: ‘div’ },<br>    { type: ‘span’, key: ‘span’ },<br>    { type: ‘br’, key: ‘bt’ }<br>  ]<br>},<br>// …<br>当state发生了改变<br>到目前为止，我们只聊了下React哲学里面的props部分，却忽视了另外很重要的一部分state。下面是一个简单的stateful组件：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  state = &#123; <span class="attr">counter</span>: <span class="number">0</span> &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">  increment = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.setState(&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    counter: <span class="keyword">this</span>.state.counter + <span class="number">1</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">  render = <span class="function"><span class="params">()</span> =&gt;</span> (<span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.increment&#125;</span>&gt;</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="xml">    &#123;'Counter: ' + this.state.counter&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>在state对象里，我们有一个keycounter。点击按钮时，这个值会增加，然后按钮的文本也会发生相应的改变。但是，当我们这样做时，DOM中发生了什么？哪部分将被重新计算和更新？</p>
+<p>调用this.setState会导致re-render（重新渲染），但不会影响到整个页面，而只会影响组件本身及其children组件。父母和兄弟姐妹都不会受到影响。当我们有一个层级很深的组件链时，这会让状态更新变得非常方便，因为我们只需要重绘(redraw)它的一部分。</p>
+<p>把问题说清楚<br>我们准备了一个小demo，以便你可以在看到在“野蛮生长”的React编码方式下最常见的问题，后续我也告诉大家怎么去解决这些问题。你可以在这里看看它的源代码。你还需要React Developer Tools，请确保浏览器安装了它们。<br>我们需要使用React的内置分析器（注意它不适用于生产模式）。</p>
+<p>添加?react_perf到应用的URL，然后转到Chrome DevTools中的“Performance”标签。点击“录制”（Record）并在表格上点击。添加一些row，更改一下counter，然后点击“停止”（Stop）。</p>
+<p>react_perf_tools.png<br>在输出的结果中，我们关注“User timing”这项指标。放大时间轴直到看到“React Tree Reconciliation”这个组及其子项。这些就是我们组件的名称，它们旁边都写着[update]或[mount]。</p>
+<p>我们的大部分性能问题都属于这两类问题之一。</p>
+<p>无论是组件（还是从它分支的其他组件）出于某种原因都会在每次更新时re-mounted（慢），又或者我们在大型应用上执行对每个分支做diff，尽管这些组件并没有发生改变，我们不希望这些情况的发生。</p>
+<p>优化我们的代码：Mounting / Unmounting<br>现在，我们已经了解到当需要update Virtual Dom时，React是依据哪些规则去判断要不要更新，以及也知道了我们可以通过什么方式去追踪这些diff场景的背后发生了什么，我们终于准备好优化我们的代码了！首先，我们来看看mounts/unmounts。</p>
+<p>如果你能够注意到当一个元素包含的多个children，他们是由array组成的话，你可以实现十分显著的速度优化。</p>
+<p>我们来看看这个case：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &lt;Message /&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &lt;Table /&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &lt;Footer /&gt;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&lt;<span class="regexp">/div&gt;</span></span></pre></td></tr></table></figure>
+<p>在我们的Virtual DOM里这么表示：<br>// …</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">props: &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  children: [</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#123; <span class="attr">type</span>: Message &#125;,</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#123; <span class="attr">type</span>: Table &#125;,</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#123; <span class="attr">type</span>: Footer &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  ]</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>// …<br>这里有一个简单的Message例子，就是一个div写着一些简单的文本，和以及一个巨大的Table，比方说，超过1000行。它们（Message和Table）都是顶级div的子组件，所以它们被放置在父节点的props.children下，并且它们key都不会有。React甚至不会通过控制台警告我们要给每个child分配key，因为children正在React.createElement作为参数列表传递给父元素，而不是直接遍历一个数组。</p>
+<p>现在我们的用户已读了一个通知，Message（譬如新通知按钮）从DOM上移除。Table和Footer是剩下的全部。</p>
+<p>// …<br>props: {<br>  children: [<br>    { type: Table },<br>    { type: Footer }<br>  ]<br>}<br>// …<br>React会怎么处理呢？它会看作是一个array类型的children，现在少了第一项，从前第一项是Message现在是Table了，也没有key作为索引，比较type的时候又发现它们俩不是同一个function或者class的同一个实例，于是会把整个Tableunmount，然后在mount回去，渲染它的1000+行子数据。</p>
+<p>因此，你可以给每个component添加唯一的key（但在目特殊的case下，使用key并不是最佳选择），或者采用更聪明的小技巧：使用短路求值（又名“最小化求值”），这是JavaScript和许多其他现代语言的特性。看：</p>
+<p>// Using a boolean trick</p>
+<div>
+  {isShown && <Message />}
+  <Table />
+  <Footer />
+</div>
+虽然Message会离开屏幕，父元素div的props.children仍然会拥有三个元素，children[0]具有一个值false（一个布尔值）。请记住true, false, null, undefined是虚拟DOM对象type属性的允许值，我们最终得到了类似的结果：
+
+<p>// …<br>props: {<br>  children: [<br>    false, //  isShown &amp;&amp; <Message /> evaluates to false<br>    { type: Table },<br>    { type: Footer }<br>  ]<br>}<br>// …<br>因此，有没有Message组件，我们的索引值都不会改变，Table当然仍然会跟Table比较（当type是一个函数或类的引用时，diff比较的成本还是会有的），但仅仅比较虚拟DOM的成本，通常比“删除DOM节点”并“从0开始创建”它们要来得快。</p>
+<p>现在我们来看看更多的东西。大家都挺喜欢用HOC的，高阶组件是一个将组件作为参数，执行某些操作，最后返回另外一个不同功能的组件：</p>
+<p>function withName(SomeComponent) {<br>  // Computing name, possibly expensive…<br>  return function(props) {<br>    return &lt;SomeComponent {…props} name={name} /&gt;;<br>  }<br>}<br>这是一种常见的模式，但你需要小心。如果我们这么写：<br>class App extends React.Component() {<br>  render() {<br>    // Creates a new instance on each render<br>    const ComponentWithName = withName(SomeComponent);<br>    return <ComponentWithName />;<br>  }<br>}<br>我们在父节点的render方法内部创建一个HOC。当我们重新渲染（re-render）树时，虚拟DOM是这样子的：<br>// On first render:<br>{<br>  type: ComponentWithName,<br>  props: {},<br>}</p>
+<p>// On second render:<br>{<br>  type: ComponentWithName, // Same name, but different instance<br>  props: {},<br>}<br>现在，React会对ComponentWithName这个实例做diff，但由于此时同名引用了不同的实例，因此全等比较（triple equal）失败，一个完整的re-mount会发生（整个节点换掉），而不是调整属性值或顺序。注意它也会导致状态丢失，如此处所述。幸运的是，这很容易解决，你需要始终在render外面创建一个HOC：</p>
+<p>// Creates a new instance just once<br>const ComponentWithName = withName(Component);</p>
+<p>class App extends React.Component() {<br>  render() {<br>    return <ComponentWithName />;<br>  }<br>}<br>优化我的代码：Updating<br>现在我们可以确保在非必要的时候，不做re-mount的事情了。然而，对位于DOM树根部附近（层级越上面的元素）的组件所做的任何更改都会导致其所有children的diffing和调整（reconciliation）。在层级很多、结构复杂的应用里，这些成本很昂贵，但经常是可以避免的。</p>
+<p>如果有一种方法可以告诉React你不用来检查这个分支了，因为我们可以肯定那个分支不会有更新，那就太棒了！</p>
+<p>这种方式是真的有的哈，它涉及一个built-in方法叫shouldComponentUpdate，它也是组件生命周期的一部分。这个方法的调用时机：组件的render和组件接收到state或props的值的更新时。然后我们可以自由地将它们与我们当前的值进行比较，并决定是否更新我们的组件（返回true或false）。如果我们返回false，React将不会重新渲染组件，也不会检查它的所有子组件。</p>
+<p>通常来说，比较两个集合（set）props和state一个简单的浅层比较（shallow comparison）就足够了：如果顶层的值不同，我们不必接着比较了。浅比较不是JavaScript的一个特性，但有很多小而美的库（utilities）可以让我们用上那么棒的功能。</p>
+<p>现在可以像这样编写我们的代码：</p>
+<p>class TableRow extends React.Component {</p>
+<p>  // will return true if new props/state are different from old ones<br>  shouldComponentUpdate(nextProps, nextState) {<br>    const { props, state } = this;<br>    return !shallowequal(props, nextProps)<br>           &amp;&amp; !shallowequal(state, nextState);<br>  }</p>
+<p>  render() { /* … */ }<br>}<br>但是你甚至都不需要自己写代码，因为React把这个特性内置在一个类React.PureComponent里面。它类似于 React.Component，只是shouldComponentUpdate已经为你实施了一个浅的props/state比较。</p>
+<p>这听起来很“不动脑”，在声明class继承（extends）的时候，把Component换成PureComponent就可以享受高效率。事实上，并不是这么“傻瓜”，看看这些例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;Table</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// map returns a new instance of array so shallow comparison will fail</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    rows=&#123;rows.map(<span class="comment">/* ... */</span>)&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// object literal is always "different" from predecessor</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    style=&#123; &#123; <span class="attr">color</span>: <span class="string">'red'</span> &#125; &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// arrow function is a new unnamed thing in the scope, so there will always be a full diffing</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    onUpdate=&#123;() =&gt; &#123; <span class="comment">/* ... */</span> &#125;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">/&gt;</span></pre></td></tr></table></figure>
+<p>上面的代码片段演示了三种最常见的反模式。尽量避免它们！</p>
+<p>如果你能注意点，在render定义之外创建所有对象、数组和函数，并确保它们在各种调用间，不发生更改 —— 你是安全的。</p>
+<p>你在updated demo，所有table的rows都被“净化”（purified）过，你可以看到PureComponent的表现了。如果你在React DevTools中打开“Highlight Updates”，你会注意到只有表格本身和新行在插入时会触发render，其他的行保持不变。</p>
+<p>[译者说：为了便于大家理解purified，译者在下面插入了原文demo的一段代码]</p>
+<p>class TableRow extends React.PureComponent {<br>  render() {<br>    return React.createElement(‘tr’, { className: ‘row’ },<br>      React.createElement(‘td’, { className: ‘cell’ }, this.props.title),<br>      React.createElement(‘td’, { className: ‘cell’ }, React.createElement(Button)),<br>    );<br>  }<br>};<br>不过，如果你迫不及待地all in PureComponent，在应用里到处都用的话 —— 控制住你自己！</p>
+<p>shallow比较两组props和state不是免费的，对于大多数基本组件来说，甚至都不值得：shallowCompare比diffing算法需要耗费更多的时间。</p>
+<p>使用这个经验法则：pure component适用于复杂的表单和表格，但它们通常会减慢简单元素（按钮、图标）的效率。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/React/" class="article-tag-list-link color1">React</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/08/react/%E8%99%9A%E6%8B%9Fdom%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-react/useEffect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -880,97 +1090,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/01/07/es6/es6%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-其他/快速删除node_modules文件的方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/01/%E5%85%B6%E4%BB%96/%E5%BF%AB%E9%80%9F%E5%88%A0%E9%99%A4node_modules%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/">快速删除node_modules目录的方法</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/01/%E5%85%B6%E4%BB%96/%E5%BF%AB%E9%80%9F%E5%88%A0%E9%99%A4node_modules%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-01-01T08:36:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="第一种方法"><a href="#第一种方法" class="headerlink" title="第一种方法"></a>第一种方法</h1><ul>
-<li>cnpm i rimraf -g</li>
-<li>rimraf node_modules</li>
-</ul>
-<h1 id="第二种方法"><a href="#第二种方法" class="headerlink" title="第二种方法"></a>第二种方法</h1><ul>
-<li>rmdir /s/q your_app_dir<!--  
-/s 是代表删除所有子目录跟其中的档案。
-/q 是不要它在删除档案或目录时，不再问我 Yes or No 的动作。
-要删除的目录前也可以指定路径，如： rmdir /s/q d:\123\gbh -->
-
-</li>
-</ul>
-<h1 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h1><ul>
-<li>rm -f /node_modules</li>
-</ul>
-<h1 id="第四种"><a href="#第四种" class="headerlink" title="第四种"></a>第四种</h1><ul>
-<li>cnpm install -g dlf  dlf  C:\Users\92809\Desktop\56（这里是node_modules的文件全路径）</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其他/" class="article-tag-list-link color3">其他</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/01/%E5%85%B6%E4%BB%96/%E5%BF%AB%E9%80%9F%E5%88%A0%E9%99%A4node_modules%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/">展开全文 >></a>
         </p>
       
 
