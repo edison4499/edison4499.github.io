@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://edison4499.github.io">
-  <title>Archives | edison4499blog</title>
+  <title>react的setState | edison4499blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="edison4499blog">
-<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;archives&#x2F;page&#x2F;3&#x2F;index.html">
+  <meta name="description" content="先看一个例子假如有这样一个点击执行累加场景： export default class SetState extends React.Component &amp;#123;  state&#x3D;&amp;#123;      count:0  &amp;#125;  handelCrement &#x3D; () &#x3D;&amp;gt;&amp;#123;    this.setState(&amp;#123;        count: this.state.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react的setState">
+<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;2020&#x2F;04&#x2F;09&#x2F;react&#x2F;setState&#x2F;index.html">
 <meta property="og:site_name" content="edison4499blog">
+<meta property="og:description" content="先看一个例子假如有这样一个点击执行累加场景： export default class SetState extends React.Component &amp;#123;  state&#x3D;&amp;#123;      count:0  &amp;#125;  handelCrement &#x3D; () &#x3D;&amp;gt;&amp;#123;    this.setState(&amp;#123;        count: this.state.">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;assets&#x2F;img&#x2F;setState.png">
+<meta property="og:updated_time" content="2020-04-09T03:03:46.723Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;assets&#x2F;img&#x2F;setState.png">
   
     <link rel="alternative" href="/atom.xml" title="edison4499blog" type="application/atom+xml">
   
@@ -133,215 +138,321 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-react/setState" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      react的setState
+    </h1>
+  
+
+        
+        <a href="/2020/04/09/react/setState/" class="archive-article-date">
+  	<time datetime="2020-04-09T08:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-09</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先看一个例子<br>假如有这样一个点击执行累加场景：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">SetState</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  state=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      count:<span class="number">0</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  handelCrement = <span class="function"><span class="params">()</span> =&gt;</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">this</span>.setState(&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        count: <span class="keyword">this</span>.state.count + <span class="number">1</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// this.setState((prevState) =&gt; &#123;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//     return &#123;count: prevState.count + 1&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//   &#125;);</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  incrementCount = <span class="function"><span class="params">()</span> =&gt;</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      <span class="keyword">this</span>.handelCrement()</span></pre></td></tr><tr><td class="code"><pre><span class="line">      <span class="keyword">this</span>.handelCrement()</span></pre></td></tr><tr><td class="code"><pre><span class="line">      <span class="keyword">this</span>.handelCrement()</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  render() &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      <span class="keyword">const</span> &#123;count&#125; = <span class="keyword">this</span>.state</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="xml">        &#123;count&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.incrementCount&#125;</span>&gt;</span>添加<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>每一次点击， 累加三次，看一下输入：</p>
+<p>并没有达到预期的效果，纠正也很简单：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">handelCrement = <span class="function"><span class="params">()</span> =&gt;</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState</span>) =&gt;</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">return</span> &#123;<span class="attr">count</span>: prevState.count + <span class="number">1</span>&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      &#125;);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr></table></figure>
+<p>再看输出：</p>
+<p>setState 的时候， 一个传入了object, 一个传入了更新函数。</p>
+<p>区别在于： 传入一个更新函数，就可以访问当前状态值。 setState调用是 批量处理的，因此可以让更新建立在彼此之上，避免冲突。</p>
+<p>那问题来了， 为什么前一种方式就不行呢？ 带着这个疑问，继续往下看。</p>
+<p>setState 为什么不会同步更新组件？<br>进入这个问题之前，我们先回顾一下现在对 setState 的认知：</p>
+<ol>
+<li>setState 不会立刻改变React组件中state的值.</li>
+<li>setState 通过触发一次组件的更新来引发重绘.</li>
+<li>多次 setState 函数调用产生的效果会合并。<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateName</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">this</span>.setState(&#123;<span class="attr">Age</span>: <span class="string">'22'</span>&#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">this</span>.setState(&#123;<span class="attr">Name</span>: <span class="string">'srtian'</span>&#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateName</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">this</span>.setState(&#123;<span class="attr">Age</span>: <span class="string">'22'</span>, <span class="attr">Name</span>: <span class="string">'srtian'</span>&#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+重绘指的就是引起 React 的更新生命周期函数4个函数：</li>
+</ol>
+<p>shouldComponentUpdate（被调用时this.state没有更新；如果返回了false，生命周期被中断，虽然不调用之后的函数了，但是state仍然会被更新）<br>componentWillUpdate（被调用时this.state没有更新）<br>render（被调用时this.state得到更新）<br>componentDidUpdate<br>如果每一次 setState 调用都走一圈生命周期，光是想一想也会觉得会带来性能的问题，其实这四个函数都是纯函数，性能应该还好，但是render函数返回的结果会拿去做Virtual DOM比较和更新DOM树，这个就比较费时间。</p>
+<p>目前React会将setState的效果放在队列中，积攒着一次引发更新过程。</p>
+<p>为的就是把 Virtual DOM 和 DOM 树操作降到最小，用于提高性能。</p>
+<p>查阅一些资料后发现，某些操作还是可以同步更新 this.state的。</p>
+<p>setState 什么时候会执行同步更新？</p>
+<p><strong>结论</strong></p>
+<p>在React中，如果是由React引发的事件处理（比如通过onClick引发的事件处理），调用 setState 不会同步更新 this.state，除此之外的setState调用会同步执行this.state。<br>所谓“除此之外”，指的是绕过React通过 addEventListener 直接添加的事件处理函数，还有通过setTimeout || setInterval 产生的异步调用。</p>
+<p>简单一点说， 就是经过React 处理的事件是不会同步更新 this.state的. 通过 addEventListener || setTimeout/setInterval 的方式处理的则会同步更新。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">state=&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    val:<span class="number">0</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">componentDidMount()&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">this</span>.setState(&#123;<span class="attr">val</span>: <span class="keyword">this</span>.state.val + <span class="number">1</span>&#125;);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.val);    <span class="comment">// 第 1 次 log 0</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">this</span>.setState(&#123;<span class="attr">val</span>: <span class="keyword">this</span>.state.val + <span class="number">1</span>&#125;);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.val);    <span class="comment">// 第 2 次 log 0 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">this</span>.setState(&#123;<span class="attr">val</span>: <span class="keyword">this</span>.state.val + <span class="number">1</span>&#125;); </span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.val);  <span class="comment">// 第 3 次 log 2 </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">this</span>.setState(&#123;<span class="attr">val</span>: <span class="keyword">this</span>.state.val + <span class="number">1</span>&#125;);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.val);  <span class="comment">// 第 4 次 log 3</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;, <span class="number">0</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>理论大概是这样的，盗用一张图：</p>
+<p><img src="/assets/img/setState.png" alt="解释"><br>this.setState首先会把state推入pendingState队列中</p>
+<p>在React的setState函数实现中，会根据一个变量 isBatchingUpdates 判断是直接更新 this.state 还是放到队列 中。<br>而isBatchingUpdates 默认是false，也就表示setState会同步更新this.state，但是有一个函数batchedUpdates。<br>这个函数会把isBatchingUpdates修改为true，而当React在调用事件处理函数之前就会调用这个batchedUpdates，造成的后果，就是由React控制的事件处理过程setState不会同步更新this.state。</p>
+<p>通过上图，我们知道了大致流程， 要想彻底了解它的机制，我们解读一下源码。</p>
+<p>探秘setState 源码<br>// setState方法入口如下:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ReactComponent.prototype.setState = <span class="function"><span class="keyword">function</span> (<span class="params">partialState, callback</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 将setState事务放入队列中</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.updater.enqueueSetState(<span class="keyword">this</span>, partialState);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (callback) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">this</span>.updater.enqueueCallback(<span class="keyword">this</span>, callback, <span class="string">'setState'</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;&#125;;</span></pre></td></tr></table></figure>
+<p>相关的几个概念：</p>
+<ol>
+<li>partialState，有部分state的含义，可见只是影响涉及到的state，不会伤及无辜。</li>
+<li>enqueueSetState 是 state 队列管理的入口方法，比较重要，我们之后再接着分析。</li>
+</ol>
+<p><strong>replaceState</strong> :</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">replaceState: <span class="function"><span class="keyword">function</span> (<span class="params">newState, callback</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">this</span>.updater.enqueueReplaceState(<span class="keyword">this</span>, newState);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">if</span> (callback) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">      <span class="keyword">this</span>.updater.enqueueCallback(<span class="keyword">this</span>, callback, <span class="string">'replaceState'</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr></table></figure>
+<p>   replaceState中取名为newState，有完全替换的含义。同样也是以队列的形式来管理的。<br><strong>enqueueSetState</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">enqueueSetState: <span class="function"><span class="keyword">function</span> (<span class="params">publicInstance, partialState</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 先获取ReactComponent组件对象</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> internalInstance = getInternalInstanceReadyForUpdate(publicInstance, <span class="string">'setState'</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">if</span> (!internalInstance) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 如果_pendingStateQueue为空,则创建它。可以发现队列是数组形式实现的</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> queue = internalInstance._pendingStateQueue || (internalInstance._pendingStateQueue = []);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    queue.push(partialState);</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 将要更新的ReactComponent放入数组中</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    enqueueUpdate(internalInstance);</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p><strong>getInternalInstanceReadyForUpdate</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getInternalInstanceReadyForUpdate</span>(<span class="params">publicInstance, callerName</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="comment">// 从map取出ReactComponent组件 ReactComponent是React组件的核心，包含各种状态，数据和操作方法。而ReactElement则仅仅是一个数据类。</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">var</span> internalInstance = ReactInstanceMap.get(publicInstance);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">if</span> (!internalInstance) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"> <span class="keyword">return</span> internalInstance;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p><strong>enqueueUpdate</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">enqueueUpdate</span>(<span class="params">component</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  ensureInjected();</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="comment">// 如果不是正处于创建或更新组件阶段,则处理update事务</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">if</span> (!batchingStrategy.isBatchingUpdates) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    batchingStrategy.batchedUpdates(enqueueUpdate, component);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="comment">// 如果正在创建或更新组件,则暂且先不处理update,只是将组件放在dirtyComponents数组中</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  dirtyComponents.push(component);</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p><strong>batchedUpdates</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">batchedUpdates: <span class="function"><span class="keyword">function</span> (<span class="params">callback, a, b, c, d, e</span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">var</span> alreadyBatchingUpdates = ReactDefaultBatchingStrategy.isBatchingUpdates;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="comment">// 批处理最开始时，将isBatchingUpdates设为true，表明正在更新</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  ReactDefaultBatchingStrategy.isBatchingUpdates = <span class="literal">true</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="comment">// The code is written this way to avoid extra allocations</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">if</span> (alreadyBatchingUpdates) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    callback(a, b, c, d, e);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125; <span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 以事务的方式处理updates，后面详细分析transaction</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    transaction.perform(callback, <span class="literal">null</span>, a, b, c, d, e);</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> RESET_BATCHED_UPDATES = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  initialize: emptyFunction,</span></pre></td></tr><tr><td class="code"><pre><span class="line">  close: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">// 事务批更新处理结束时，将isBatchingUpdates设为了false</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    ReactDefaultBatchingStrategy.isBatchingUpdates = <span class="literal">false</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  &#125;&#125;;</span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="keyword">var</span> TRANSACTION_WRAPPERS = [FLUSH_BATCHED_UPDATES, RESET_BATCHED_UPDATES];</span></pre></td></tr></table></figure>
+
+<p>enqueueUpdate包含了React避免重复render的逻辑。</p>
+<p>mountComponent 和 updateComponent 方法在执行的最开始，会调用到 batchedUpdates 进行批处理更新，此时会将isBatchingUpdates设置为true，也就是将状态标记为现在正处于更新阶段了。</p>
+<p>之后React以事务的方式处理组件update，事务处理完后会调用wrapper.close() 。</p>
+<p>而TRANSACTION_WRAPPERS 中包含了RESET_BATCHED_UPDATES 这个wrapper，故最终会调用RESET_BATCHED_UPDATES.close(), 它最终会将isBatchingUpdates设置为false。</p>
+<p>故 getInitialState，componentWillMount， render，componentWillUpdate 中 setState 都不会引起 updateComponent。</p>
+<p>但在componentDidMount 和 componentDidUpdate中则会。</p>
+<p>事务<br>事务通过wrapper进行封装。</p>
+<p>clipboard.png</p>
+<p>一个wrapper包含一对 initialize 和 close 方法。比如 RESET_BATCHED_UPDATES：</p>
+<p>var RESET_BATCHED_UPDATES = {<br>  // 初始化调用<br>  initialize: emptyFunction,<br>  // 事务执行完成，close时调用<br>  close: function () {<br>    ReactDefaultBatchingStrategy.isBatchingUpdates = false;<br>  }};<br>transcation被包装在wrapper中，比如:</p>
+<p>var TRANSACTION_WRAPPERS = [FLUSH_BATCHED_UPDATES, RESET_BATCHED_UPDATES];<br>transaction 是通过transaction.perform(callback, args…)方法进入的，它会先调用注册好的wrapper 中的initialize方法，然后执行perform方法中的callback，最后再执行close方法。</p>
+<p>下面分析transaction.perform(callback, args…)</p>
+<p>  perform: function (method, scope, a, b, c, d, e, f) {<br>    var errorThrown;<br>    var ret;<br>    try {<br>      this._isInTransaction = true;<br>      errorThrown = true;<br>      // 先运行所有wrapper中的initialize方法<br>      this.initializeAll(0);</p>
+<pre><code>  // 再执行perform方法传入的callback
+  ret = method.call(scope, a, b, c, d, e, f);
+  errorThrown = false;
+} finally {
+  try {
+    if (errorThrown) {
+      // 最后运行wrapper中的close方法
+      try {
+        this.closeAll(0);
+      } catch (err) {}
+    } else {
+      // 最后运行wrapper中的close方法
+      this.closeAll(0);
+    }
+  } finally {
+    this._isInTransaction = false;
+  }
+}
+return ret;</code></pre><p>  },</p>
+<p>  initializeAll: function (startIndex) {<br>    var transactionWrappers = this.transactionWrappers;<br>    // 遍历所有注册的wrapper<br>    for (var i = startIndex; i &lt; transactionWrappers.length; i++) {<br>      var wrapper = transactionWrappers[i];<br>      try {<br>        this.wrapperInitData[i] = Transaction.OBSERVED_ERROR;<br>        // 调用wrapper的initialize方法<br>        this.wrapperInitData[i] = wrapper.initialize ? wrapper.initialize.call(this) : null;<br>      } finally {<br>        if (this.wrapperInitData[i] === Transaction.OBSERVED_ERROR) {<br>          try {<br>            this.initializeAll(i + 1);<br>          } catch (err) {}<br>        }<br>      }<br>    }<br>  },</p>
+<p>  closeAll: function (startIndex) {<br>    var transactionWrappers = this.transactionWrappers;<br>    // 遍历所有wrapper<br>    for (var i = startIndex; i &lt; transactionWrappers.length; i++) {<br>      var wrapper = transactionWrappers[i];<br>      var initData = this.wrapperInitData[i];<br>      var errorThrown;<br>      try {<br>        errorThrown = true;<br>        if (initData !== Transaction.OBSERVED_ERROR &amp;&amp; wrapper.close) {<br>          // 调用wrapper的close方法，如果有的话<br>          wrapper.close.call(this, initData);<br>        }<br>        errorThrown = false;<br>      } finally {<br>        if (errorThrown) {<br>          try {<br>            this.closeAll(i + 1);<br>          } catch (e) {}<br>        }<br>      }<br>    }<br>    this.wrapperInitData.length = 0;<br>  }<br>更新组件： runBatchedUpdates</p>
+<p>前面分析到enqueueUpdate中调用transaction.perform(callback, args…)后，发现，callback还是enqueueUpdate方法啊，那岂不是死循环了？不是说好的setState会调用updateComponent，从而自动刷新View的吗？ 我们还是要先从transaction事务说起。</p>
+<p>我们的wrapper中注册了两个wrapper，如下：</p>
+<p>var TRANSACTION_WRAPPERS = [FLUSH_BATCHED_UPDATES, RESET_BATCHED_UPDATES];<br>RESET_BATCHED_UPDATES 用来管理isBatchingUpdates状态，我们前面在分析setState是否立即生效时已经讲解过了。</p>
+<p>那FLUSH_BATCHED_UPDATES用来干嘛呢？</p>
+<p>var FLUSH_BATCHED_UPDATES = {<br>  initialize: emptyFunction,<br>  close: ReactUpdates.flushBatchedUpdates.bind(ReactUpdates)};<br>var flushBatchedUpdates = function () {<br>  // 循环遍历处理完所有dirtyComponents<br>  while (dirtyComponents.length || asapEnqueued) {<br>    if (dirtyComponents.length) {<br>      var transaction = ReactUpdatesFlushTransaction.getPooled();<br>      // close前执行完runBatchedUpdates方法，这是关键<br>      transaction.perform(runBatchedUpdates, null, transaction);<br>      ReactUpdatesFlushTransaction.release(transaction);<br>    }</p>
+<pre><code>if (asapEnqueued) {
+  asapEnqueued = false;
+  var queue = asapCallbackQueue;
+  asapCallbackQueue = CallbackQueue.getPooled();
+  queue.notifyAll();
+  CallbackQueue.release(queue);
+}</code></pre><p>  }};<br>FLUSH_BATCHED_UPDATES会在一个transaction的close阶段运行runBatchedUpdates，从而执行update。</p>
+<p>function runBatchedUpdates(transaction) {<br>  var len = transaction.dirtyComponentsLength;<br>  dirtyComponents.sort(mountOrderComparator);</p>
+<p>  for (var i = 0; i &lt; len; i++) {<br>    // dirtyComponents中取出一个component<br>    var component = dirtyComponents[i];</p>
+<pre><code>// 取出dirtyComponent中的未执行的callback,下面就准备执行它了
+var callbacks = component._pendingCallbacks;
+component._pendingCallbacks = null;
+
+var markerName;
+if (ReactFeatureFlags.logTopLevelRenders) {
+  var namedComponent = component;
+  if (component._currentElement.props === component._renderedComponent._currentElement) {
+    namedComponent = component._renderedComponent;
+  }
+}
+// 执行updateComponent
+ReactReconciler.performUpdateIfNecessary(component, transaction.reconcileTransaction);
+
+// 执行dirtyComponent中之前未执行的callback
+if (callbacks) {
+  for (var j = 0; j &lt; callbacks.length; j++) {
+    transaction.callbackQueue.enqueue(callbacks[j], component.getPublicInstance());
+  }
+}</code></pre><p>  }}<br>runBatchedUpdates循环遍历dirtyComponents数组，主要干两件事。</p>
+<p>首先执行performUpdateIfNecessary来刷新组件的view<br>执行之前阻塞的callback。<br>下面来看performUpdateIfNecessary：</p>
+<p>performUpdateIfNecessary: function (transaction) {<br>    if (this._pendingElement != null) {<br>      // receiveComponent会最终调用到updateComponent，从而刷新View<br>      ReactReconciler.receiveComponent(this, this._pendingElement, transaction, this._context);<br>    }</p>
+<pre><code>if (this._pendingStateQueue !== null || this._pendingForceUpdate) {
+  // 执行updateComponent，从而刷新View。这个流程在React生命周期中讲解过
+  this.updateComponent(transaction, this._currentElement, this._currentElement, this._context, this._context);
+}</code></pre><p>  },<br>最后惊喜的看到了receiveComponent和updateComponent吧。</p>
+<p>receiveComponent最后会调用updateComponent，而updateComponent中会执行React组件存在期的生命周期方法，</p>
+<p>如componentWillReceiveProps， shouldComponentUpdate， componentWillUpdate，render, componentDidUpdate。</p>
+<p>从而完成组件更新的整套流程。</p>
+<p>整体流程回顾：<br>1.enqueueSetState将state放入队列中，并调用enqueueUpdate处理要更新的Component<br>2.如果组件当前正处于update事务中，则先将Component存入dirtyComponent中。否则调用batchedUpdates处理。<br>3.batchedUpdates发起一次transaction.perform()事务<br>4.开始执行事务初始化，运行，结束三个阶段<br>5.初始化：事务初始化阶段没有注册方法，故无方法要执行<br>6.运行：执行setSate时传入的callback方法，一般不会传callback参数<br>7.结束：更新isBatchingUpdates为false，并执行FLUSH_BATCHED_UPDATES这个wrapper中的close方法<br>8.FLUSH_BATCHED_UPDATES在close阶段，会循环遍历所有的dirtyComponents，调用updateComponent刷新组件，并执行它的pendingCallbacks, 也就是setState中设置的callback。</p>
+<p>看完理论， 我们再用一个例子巩固下.</p>
+<p>再看一个例子：<br>class Example extends React.Component {<br> constructor() {<br>   super();<br>   this.state = {<br>    val: 0<br>   };<br>}<br>componentDidMount() {<br>  this.setState({val: this.state.val + 1});<br>  console.log(‘第 1 次 log:’, this.state.val);<br>  this.setState({val: this.state.val + 1});<br>  console.log(‘第 2 次 log:’, this.state.val);</p>
+<p> setTimeout(() =&gt; {<br>  this.setState({val: this.state.val + 1});<br>  console.log(‘第 3 次 log:’, this.state.val);<br>  this.setState({val: this.state.val + 1});<br>  console.log(‘第 4 次 log:’, this.state.val);<br> }, 0);<br>}<br> render() {<br>  return null;<br> }<br>};<br>前两次在isBatchingUpdates 中，没有更新state, 输出两个0。</p>
+<p>后面两次会同步更新， 分别输出2， 3；</p>
+<p>很显然，我们可以将4次setState简单规成两类：</p>
+<p>componentDidMount是一类<br>setTimeOut中的又是一类，因为这两次在不同的调用栈中执行。<br>我们先看看在componentDidMount中setState的调用栈：</p>
+<p>clipboard.png</p>
+<p>再看看在setTimeOut中的调用栈：</p>
+<p>clipboard.png</p>
+<p>我们重点看看在componentDidMount中的sw3e调用栈 ：<br>发现了batchedUpdates方法。</p>
+<p>原来在setState调用之前，就已经处于batchedUpdates执行的事务之中了。</p>
+<p>那batchedUpdates方法是谁调用的呢？我们再往上追溯一层，原来是ReactMount.js中的_renderNewRootComponent方法。</p>
+<p>也就是说，整个将React组件渲染到DOM的过程就处于一个大的事务中了。</p>
+<p>接下来就很容易理解了: 因为在componentDidMount中调用setState时，batchingStrategy的isBatchingUpdates已经被设置为true，所以两次setState的结果并没有立即生效，而是被放进了dirtyComponents中。</p>
+<p>这也解释了两次打印this.state.val都是0的原因，因为新的state还没被应用到组件中。</p>
+<p>再看setTimeOut中的两次setState，因为没有前置的batchedUpdate调用，所以batchingStrategy的isBatchingUpdates标志位是false，也就导致了新的state马上生效，没有走到dirtyComponents分支。</p>
+<p>也就是说，setTimeOut中的第一次执行，setState时，this.state.val为1;</p>
+<p>而setState完成后打印时this.state.val变成了2。</p>
+<p>第二次的setState同理。</p>
+<p>通过上面的例子，我们就知道setState 是可以同步更新的，但是还是尽量避免直接使用， 仅作了解就可以了。</p>
+<p>如果你非要玩一些骚操作，写出这样的代码去直接去操作this.state：</p>
+<p>this.state.count = this.state.count + 1;<br>this.state.count = this.state.count + 1;<br>this.state.count = this.state.count + 1;<br>this.setState();<br>我只能说， 大胸弟， 你很骚。吾有旧友叼似汝，而今坟草丈许高。</p>
+<p>结语<br>最后简单重复下结论吧：</p>
+<p>不要直接去操作this.state， 这样会造成不必要的性能问题和隐患。<br>由React引发的事件处理，调用setState不会同步更新this.state，除此之外的setState调用会同步执行this.state。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" target="_blank" rel="noopener" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我喝瓶水<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/apay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/06/es6/es6%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" class="archive-article-date">
-  	<time datetime="2019-12-06T03:10:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/06/es6/es6%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/">es6-块级作用域 解构赋值</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
+        			<a href="/categories/React/" class="article-tag-list-link color1">React</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" target="_blank" rel="noopener" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://edison4499.github.io/2020/04/09/react/setState/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/06/%E9%9D%A2%E8%AF%95%E9%A2%98/js%E9%9D%A2%E8%AF%95%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2019-12-06T03:10:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-06</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/09/react/setStateOne/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">react/setStateOne</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/06/%E9%9D%A2%E8%AF%95%E9%A2%98/js%E9%9D%A2%E8%AF%95%E9%A2%98/">数组去重</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/面试题/" class="article-tag-list-link color4">面试题</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/03/ts/ts%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="archive-article-date">
-  	<time datetime="2019-12-03T01:50:26.681Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-03</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/03/ts/ts%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">ts的基本数据类型</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/TypeScript/" class="article-tag-list-link color1">TypeScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B1%9E%E6%80%A7%E5%92%8C%E8%AE%BF%E9%97%AE%E5%99%A8%E5%B1%9E%E6%80%A7/" class="archive-article-date">
-  	<time datetime="2019-11-29T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B1%9E%E6%80%A7%E5%92%8C%E8%AE%BF%E9%97%AE%E5%99%A8%E5%B1%9E%E6%80%A7/">js的数据属性和访问器属性</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/js高级进阶/" class="article-tag-list-link color2">js高级进阶</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2019-11-29T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3/">js闭包的理解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/js高级进阶/" class="article-tag-list-link color2">js高级进阶</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
   
 
 
@@ -365,8 +476,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
