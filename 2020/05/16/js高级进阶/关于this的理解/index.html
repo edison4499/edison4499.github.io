@@ -6,13 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://edison4499.github.io">
-  <title>Archives | edison4499blog</title>
+  <title>关于this的理解 | edison4499blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="edison4499blog">
-<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;archives&#x2F;page&#x2F;3&#x2F;index.html">
+  <meta name="description" content="在函数中使用  严格模式和非严格模式下函数中this的指向 严格模式下 this指向undefined 非严格模式下 this指向window&#x2F;&#x2F; function get()&amp;#123;&#x2F;&#x2F;     console.log(this) &#x2F;&#x2F; window&#x2F;&#x2F; &amp;#125;&#x2F;&#x2F; get()function get()&amp;#123;    &amp;apos;use strict&amp;apos;    console.log(th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于this的理解">
+<meta property="og:url" content="https:&#x2F;&#x2F;edison4499.github.io&#x2F;2020&#x2F;05&#x2F;16&#x2F;js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6&#x2F;%E5%85%B3%E4%BA%8Ethis%E7%9A%84%E7%90%86%E8%A7%A3&#x2F;index.html">
 <meta property="og:site_name" content="edison4499blog">
+<meta property="og:description" content="在函数中使用  严格模式和非严格模式下函数中this的指向 严格模式下 this指向undefined 非严格模式下 this指向window&#x2F;&#x2F; function get()&amp;#123;&#x2F;&#x2F;     console.log(this) &#x2F;&#x2F; window&#x2F;&#x2F; &amp;#125;&#x2F;&#x2F; get()function get()&amp;#123;    &amp;apos;use strict&amp;apos;    console.log(th">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-05-20T06:07:39.742Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="edison4499blog" type="application/atom+xml">
@@ -133,151 +136,121 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-js高级进阶/关于this的理解" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于this的理解
+    </h1>
+  
+
+        
+        <a href="/2020/05/16/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/%E5%85%B3%E4%BA%8Ethis%E7%9A%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2020-05-16T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>在函数中使用</p>
+<ul>
+<li>严格模式和非严格模式下函数中this的指向<ul>
+<li>严格模式下 this指向undefined</li>
+<li>非严格模式下 this指向window<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// function get()&#123;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//     console.log(this) // window</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// &#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// get()</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">    'use strict'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">// undefined</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">get</span>()</span></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>函数在被直接调用的时候，其中的this指针永远指向window</li>
+<li>匿名函数 this总是指向window对象</li>
+<li>谁执行函数，this就指向谁</li>
+<li>如果函数new了一下，那么就会创建一个对象，并且this指向新创建的对象</li>
+</ul>
+<ul>
+<li><p>谁执行函数this指向谁 执行时是在某个特定的上下文中执行的  什么是上下文呢？</p>
+<ul>
+<li><p>全局执行环境<br>　全局环境是最外围的一个执行环境。全局执行环境被认为是window对象。因此所有全局变量和函数都是作为  window对象的属性和方法创建的。代码载入浏览器时，全局执行环境被创建(当我们关闭网页或者浏览器时全局执行环境才被销毁)。比如在一个页面中，第一次载入JS代码时创建一个全局执行环境。这也是为什么闭包有一个内存泄露的缺点。因为闭包中外部函数被当成了全局环境。所以不会被销毁，一直保存在内存中。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> a = <span class="number">0</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        a++</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(a)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> b</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> res = a()</span></pre></td></tr><tr><td class="code"><pre><span class="line">res() <span class="comment">// 1</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">res() <span class="comment">// 2</span></span></pre></td></tr></table></figure>
+</li>
+<li><p>函数执行环境<br>  每个函数都有自己的执行环境。当执行流进入一个函数时，函数环境就会被推入一个环境栈中。当函数执行完之后，栈将其环境弹出，把控制权返回给之前的执行环境。函数执行环境的变量对象是该函数的活动对象（activation object）。这就是上下文，函数执行时它也需要一些额外的信息来支撑它的运行。那么既然function是对象的话，就会有方法。而function中最核心的方法是call方法。因此我们就从这儿入手</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>call方法<br>先来看一下如何使用call方法：<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">say</span>(<span class="params">content</span>) </span>&#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="string">"From "</span> + <span class="keyword">this</span> + <span class="string">": Hello "</span>+ content);  </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">say.call(<span class="string">"Bob"</span>, <span class="string">"World"</span>); <span class="comment">//==&gt; From Bob: Hello World</span></span></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>Step1: 把第二个到最后一个参数作为函数执行时要传入的参数</p>
+</li>
+<li><p>Step2: 把函数执行时的this指向第一个参数</p>
+</li>
+<li><p>Step3: 在上面这个特殊的上下文中执行函数<br>上面例子中，我们通过call方法，让say函数执行时的this指向”Bob”，然后把”World”作为参数传进去，所以输出结果是可以预见的。<br>js执行函数时会默认完成以上的步骤，你可以把直接调用函数理解为一种语法糖<br>比如</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">say</span>(<span class="params">word</span>) </span>&#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(world);  </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">say(<span class="string">"Hello world"</span>); </span></pre></td></tr><tr><td class="code"><pre><span class="line">say.call(<span class="built_in">window</span>, <span class="string">"Hello world"</span>);  </span></pre></td></tr><tr><td class="code"><pre><span class="line">以上可以把say(<span class="string">"Hello world"</span>)看做是say.call(<span class="built_in">window</span>,<span class="string">"Hello world"</span>)的语法糖。</span></pre></td></tr></table></figure>
+<p>这个结论非常关键<br>所以以后每次看见functionName(xxx)的时候，你需要马上在脑海中把它替换为functionName.call(window,xxxx)，这对你理解this的指向非常重要。不过也有例外，在ES5的strict mode中call的第一个参数不是window而是undefined。之后的例子我假设总是不在strictmode下，但你需要记住strictmode有一点儿不同。<br>对于匿名函数来说，上面的结论也是成立的</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;)(<span class="string">"aa"</span>);  </span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//等价于  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;).call(<span class="built_in">window</span>, <span class="string">"aa"</span>);</span></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>函数作为对象的方法被调用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    name : <span class="string">"caibirdme"</span>,  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    run : <span class="function"><span class="keyword">function</span>(<span class="params">time</span>) </span>&#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">"has been running for over "</span>+ time+ <span class="string">" minutes"</span>);  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">person.run(<span class="number">30</span>); <span class="comment">//==&gt; caibirdme has been running for over 30 minutes  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//等价于  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">person.run.call(person, <span class="number">30</span>); <span class="comment">// the same </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// 你会发现这里call的第一个参数是person而不是window。</span></span></pre></td></tr></table></figure></li>
+<li><p>例子一</p>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params">thing</span>) </span>&#123;    </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">" says hello "</span> + thing);  </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;  </span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">person = &#123; <span class="attr">name</span>: <span class="string">"caibirdme"</span> &#125;    </span></pre></td></tr><tr><td class="code"><pre><span class="line">person.hello = hello;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">person.hello(<span class="string">"world"</span>) <span class="comment">// 相当于执行 person.hello.call(person, "world")</span></span></pre></td></tr></table></figure></li>
+<li><p>例子二</p>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    x: <span class="number">20</span>,  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    f: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.x); <span class="comment">//</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">                <span class="comment">// ==&gt; 20  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="built_in">console</span>.log(<span class="keyword">this</span>.x); &#125;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">        foo(); <span class="comment">// foo.call(window)  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">                <span class="comment">//foo中this被指定为window，所以==&gt; 10  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;;  </span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">obj.f();  <span class="comment">// obj.f.call(obj)  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// ==&gt; 20 10</span></span></pre></td></tr></table></figure></li>
+<li><p>例子三 如果我想让foo输出20怎么办？这时候需要用到一点小技巧</p>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;  </span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    x: <span class="number">20</span>,  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    f: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);  <span class="comment">// 20</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">var</span> that = <span class="keyword">this</span>; <span class="comment">//使用that保留当前函数执行上下文的this  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="built_in">console</span>.log(that.x); &#125; <span class="comment">//此时foo函数中的this仍然指向window，但我们使用that取得obj  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        foo(); <span class="comment">// foo.call(window)  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;;  </span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">obj.f(); </span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// obj.f.call(obj)</span></span></pre></td></tr></table></figure></li>
+<li><p>例子四 腾讯笔试真题</p>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;  </span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    x: <span class="number">20</span>,  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    f: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="built_in">console</span>.log(<span class="keyword">this</span>.x); &#125;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;;  </span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">obj.f(); <span class="comment">// obj.f.call(obj)  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// ==&gt; 20  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fOut = obj.f;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">fOut(); <span class="comment">// fOut.call(window)  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//==&gt; 10  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj2 = &#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    x: <span class="number">30</span>,  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    f: obj.f  </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">obj2.f(); <span class="comment">// obj2.f.call(obj2)  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//==&gt; 30</span></span></pre></td></tr></table></figure></li>
+<li><p>例子五 阿里笔试真题</p>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="number">222</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">         <span class="keyword">var</span> a = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">           name:<span class="number">111</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">           say:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">             <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span></pre></td></tr><tr><td class="code"><pre><span class="line">           &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">         &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">         <span class="keyword">var</span> fun = a.say;</span></pre></td></tr><tr><td class="code"><pre><span class="line">         fun() <span class="comment">// fun.call(window) 222</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">         a.say() <span class="comment">// a.say.call(a) 111</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">         <span class="keyword">var</span> b = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">           name:<span class="number">333</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">           say:<span class="function"><span class="keyword">function</span>(<span class="params">fun</span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">              fun() <span class="comment">// fun.call(window) // 222</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">           &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">         &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">         b.say(a.say) <span class="comment">// b.say.call(b,a.say) </span></span></pre></td></tr><tr><td class="code"><pre><span class="line">         b.say = a.say</span></pre></td></tr><tr><td class="code"><pre><span class="line">         b.say() <span class="comment">// 333 b.say.call(b) // 333</span></span></pre></td></tr></table></figure></li>
+<li><p>函数在当做构造函数的时候也同样可以用call去代替</p>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">this</span>.name = name;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;  </span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="keyword">new</span> person(<span class="string">"deen"</span>);  </span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//通过new创建了一个对象  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//new是一种语法糖，new person等价于  </span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = (<span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">var</span> _newObj = &#123;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">constructor</span> : person,  </span></pre></td></tr><tr><td class="code"><pre><span class="line">        __proto__ : person.prototype,  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    _newObj.<span class="keyword">constructor</span>(name); // _newObj.<span class="keyword">constructor</span>.call(_newObj, name)  </span></pre></td></tr><tr><td class="code"><pre><span class="line">    return _newObj;  </span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;)();</span></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>当this不在函数中调用的时候 this还是指向了window</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a =<span class="number">100</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">1</span>,<span class="attr">b</span>:<span class="keyword">this</span>.a +<span class="number">1</span>&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(obj.b)</span></pre></td></tr></table></figure></li>
+<li><p>es6 的箭头函数<br>  箭头函数没有自己的this，他的this是继承来的，默认指向在定义他时所在的对象，</p>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fn1 = <span class="function"><span class="params">()</span> =&gt;</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">// window</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">fn1()</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">// fn2是在data对象中创建的this指向data对象</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> data = &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    name:<span class="string">'yuangege'</span>,</span></pre></td></tr><tr><td class="code"><pre><span class="line">    fn: <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">const</span> fn2 = <span class="function"><span class="params">()</span> =&gt;</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        fn2();</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">data.fn();</span></pre></td></tr></table></figure></li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" target="_blank" rel="noopener" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我喝瓶水<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/apay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/06/es6/es6%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" class="archive-article-date">
-  	<time datetime="2019-12-06T03:10:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/06/es6/es6%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/">es6-块级作用域 解构赋值</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/es6/" class="article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/06/%E9%9D%A2%E8%AF%95%E9%A2%98/js%E9%9D%A2%E8%AF%95%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2019-12-06T03:10:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/06/%E9%9D%A2%E8%AF%95%E9%A2%98/js%E9%9D%A2%E8%AF%95%E9%A2%98/">数组去重</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/面试题/" class="article-tag-list-link color4">面试题</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/03/ts/ts%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="archive-article-date">
-  	<time datetime="2019-12-03T01:50:26.681Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/03/ts/ts%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">ts的基本数据类型</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/TypeScript/" class="article-tag-list-link color1">TypeScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B1%9E%E6%80%A7%E5%92%8C%E8%AE%BF%E9%97%AE%E5%99%A8%E5%B1%9E%E6%80%A7/" class="archive-article-date">
-  	<time datetime="2019-11-29T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B1%9E%E6%80%A7%E5%92%8C%E8%AE%BF%E9%97%AE%E5%99%A8%E5%B1%9E%E6%80%A7/">js的数据属性和访问器属性</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -290,58 +263,103 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" target="_blank" rel="noopener" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://edison4499.github.io/2020/05/16/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/%E5%85%B3%E4%BA%8Ethis%E7%9A%84%E7%90%86%E8%A7%A3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2019-11-29T07:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-29</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/10/react/setStateOne/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">react的setState</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/29/js%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/js%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3/">js闭包的理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/js高级进阶/" class="article-tag-list-link color2">js高级进阶</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -365,8 +383,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
